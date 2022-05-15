@@ -1,0 +1,26 @@
+{%extends 'base.html'%}
+
+{% block body %}
+<div class ="container" py-40 mb-30>
+<form method="post" action="/contact">
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" name="name" id="name" placeholder="enter your name">
+      </div>
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+      </div>
+      <div class="form-group">
+          <label for="Mobile number">Mobile number</label>
+        <input type="Mobile number" class="form-control" name="phone" id="Mobile number" placeholder="Mobile number">
+      </div>
+      <div class="form-group">
+          <label for="floatingTextarea">Comments</label>
+        <textarea class="form-control" placeholder="Leave a comment here" name="desc" id="floatingTextarea" style="height: 100px"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+</div>
+{% endblock body %}
