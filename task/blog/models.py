@@ -10,5 +10,15 @@ class Contact(models.Model):
     desc = models.TextField()
     date = models.DateField(null=True)
       
-    # def _str_(self):
-    #    return self.name
+    def _str_(self):
+       return self.name
+
+class Post(models.Model):
+    title = models.CharField(max_length=50)
+    subtitle = models.CharField(max_length=50)
+    intro = models.TextField()
+    body = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering=['-date']

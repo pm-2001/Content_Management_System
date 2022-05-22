@@ -1,32 +1,60 @@
 
+from ast import Subscript
 from django.shortcuts import render,HttpResponse,redirect
 from datetime import datetime
 from blog.models import Contact
+from blog.models import Post
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from .forms import CreateUserForm
 
 def home(request):
     # return HttpResponse("This is home page")
-    if request.user.is_anonymous:
-        return redirect("/signin")
-    return render(request,'index.html')
+    # if request.user.is_anonymous:
+    #     return redirect("/register")
+    posts = Post.objects.all()
+    return render(request,'index.html',{'posts':posts})
 
 def about(request):
     return render(request,'about.html')
 
     # return HttpResponse("This is about page")
+@login_required(login_url='signin')
+def posts(request):
+    if request.method == "POST":
+        title = request.POST.get('title')
+        subtitle= request.POST.get('subtitle')
+        intro = request.POST.get('intro')
+        body = request.POST.get('body')
+        posts= Post(title=title,subtitle=subtitle,intro=intro,body=body,date = datetime.today())
+        posts.save()
+    return render(request,'posts.html')
 
+@login_required(login_url='signin')
 def contact(request):
     if request.method == "POST":
         name = request.POST.get('name')
         email = request.POST.get('email')
         phone = request.POST.get('phone')
         desc = request.POST.get('desc')
-        contact = Contact(name=name, email=email, phone = phone, desc=desc, date = datetime.today())
+        contact = Contact(name=name, email=email, phone = phone, desc=desc,date = datetime.today())
         contact.save()
     return render(request,'contact.html')
 
+
     # return HttpResponse("This is contact page")
+
+def register(request):
+    form = CreateUserForm()
+      
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form':form}
+    return render(request,'register.html',context)
 
 def signin(request):
     if request.method=="POST":
@@ -40,3 +68,6 @@ def signin(request):
             return render(request,'signin.html')
     return render(request,'signin.html')
 
+def logoutUser(request):
+    logout(request)
+    return render(request,'signin.html')
