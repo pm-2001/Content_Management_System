@@ -10,7 +10,7 @@ class Contact(models.Model):
     desc = models.TextField()
     date = models.DateField(null=True)
       
-    def _str_(self):
+    def __str__(self):
        return self.name
 
 class Post(models.Model):
@@ -22,3 +22,6 @@ class Post(models.Model):
 
     class Meta:
         ordering=['-date']
+
+    def __str__(self):
+       return self.title
