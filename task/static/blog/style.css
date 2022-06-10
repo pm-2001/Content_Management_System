@@ -8,8 +8,11 @@
 }
 
 .col-md-5{
-    padding-top: 100px;
+    padding-top: 10px;
     padding-left: 40px;
+}
+.card{
+    border-radius: 18.25;
 }
 
 body {

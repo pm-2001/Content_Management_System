@@ -25,10 +25,10 @@ def about(request):
 def posts(request):
     if request.method == "POST":
         title = request.POST.get('title')
-        subtitle= request.POST.get('subtitle')
+        username = request.POST.get(request.user)
         intro = request.POST.get('intro')
         body = request.POST.get('body')
-        posts= Post(title=title,subtitle=subtitle,intro=intro,body=body,date = datetime.today())
+        posts= Post(title=title,username=request.user,intro=intro,body=body,date = datetime.today())
         posts.save()
     return render(request,'posts.html')
 
