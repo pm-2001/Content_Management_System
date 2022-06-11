@@ -2,7 +2,7 @@
 {%block title%}Posts{%endblock title%}
 {% block body %}
 <div class ="container" py-40 mb-30>
-<form method="post" action="/posts">
+<form method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
     {% comment %} <div class="form-group">
         <label for="username">Username</label>
@@ -12,14 +12,18 @@
         <label for="title">Title</label>
         <input type="text" class="form-control" name="title" id="title" placeholder="Enter your title">
     </div>
-    <div class="form-group">
+    {% comment %} <div class="form-group">
           <label for="intro">Intro</label>
         <input type="intro" class="form-control" name="intro" id="intro" placeholder="intro">
-    </div>
+    </div> {% endcomment %}
     <div class="form-group">
           <label for="floatingTextarea">Create Post</label>
         <textarea class="form-control" placeholder="Enter post here" name="body" id="floatingTextarea" style="height: 100px"></textarea>
     </div>
+    {{ form.image.label }}
+    {{form.image}}
+    <br>
+    <br>
       <button class="btn btn-primary" type="submit">Submit</button>
 </form>
 </div>

@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
+from .forms import ImageForm
 
 def home(request):
     # return HttpResponse("This is home page")
@@ -23,14 +24,17 @@ def about(request):
     # return HttpResponse("This is about page")
 @login_required(login_url='signin')
 def posts(request):
+    form = ImageForm
     if request.method == "POST":
+        form = ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save        
         title = request.POST.get('title')
         username = request.POST.get(request.user)
-        intro = request.POST.get('intro')
         body = request.POST.get('body')
-        posts= Post(title=title,username=request.user,intro=intro,body=body,date = datetime.today())
+        posts= Post(title=title,username=request.user,body=body,date = datetime.today())
         posts.save()
-    return render(request,'posts.html')
+    return render(request,'posts.html',{'form':form})
 
 @login_required(login_url='signin')
 def contact(request):
