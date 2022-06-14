@@ -25,7 +25,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link active" aria-current="page" href="">My Blogs</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="/contact">Contact</a>
@@ -35,13 +35,13 @@
               </li>
             </ul>
             
-            {% if user.is_authenticated %}<p style="color:white" align ="justify">Hello, {{request.user}}</p>
+            {% if user.is_authenticated %}<p style="color:white ; vertical-align:-2%">Hello, {{request.user}}</p>
             {% else %}
             <button type="button" class="btn btn-outline-primary" ><a href="/register">Sign up</a><button>
             {% endif %}
           
-            <div>
-              <a href="/logout">Logout</a>
+            <div style="margin-left:50%">
+              <a href="/logout" style="margin-right:10%">Logout</a>
             </div>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search here" aria-label="Search">

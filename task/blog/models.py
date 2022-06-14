@@ -20,8 +20,8 @@ class Post(models.Model):
     username = models.CharField(max_length=50)
     body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(null =True,blank=True)
+    image = models.ImageField(upload_to = "images/",null=False,default = None,blank=True)
     class Meta:
         ordering=['-date']
     def __str__(self):
-       return self.username
+       return self.title + ' | ' +str(self.username)

@@ -10,6 +10,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 from .forms import ImageForm
+from django.views.generic import DetailView
+
 
 def home(request):
     # return HttpResponse("This is home page")
@@ -18,23 +20,28 @@ def home(request):
     posts = Post.objects.all()
     return render(request,'index.html',{'posts':posts})
 
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'postdetail.html'
+
 def about(request):
     return render(request,'about.html')
 
     # return HttpResponse("This is about page")
 @login_required(login_url='signin')
 def posts(request):
-    form = ImageForm
+    form = ImageForm()
     if request.method == "POST":
         form = ImageForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save        
-        title = request.POST.get('title')
-        username = request.POST.get(request.user)
-        body = request.POST.get('body')
-        posts= Post(title=title,username=request.user,body=body,date = datetime.today())
-        posts.save()
-    return render(request,'posts.html',{'form':form})
+            form.save()       
+    #     title = request.POST.get('title')
+    #     username = request.POST.get(request.user)
+    #     body = request.POST.get('body')
+    #     posts= Post(title=title,username=request.user,body=body,date = datetime.today())
+    #     posts.save() 
+    context = {'form':form}
+    return render(request,'posts.html',context)
 
 @login_required(login_url='signin')
 def contact(request):
@@ -57,6 +64,11 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
+        # # user = authenticate(password1= "password2")
+        # if (password1=password2):    
+        #     return redirect("/")
+        # else:
+        #     return render(request,'register.html')
     context = {'form':form}
     return render(request,'register.html',context)
 

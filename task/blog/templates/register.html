@@ -4,17 +4,25 @@
     {% csrf_token %}
     {{ form.username.label }}
     {{form.username}}
-
+    <br>
     {{ form.email.label }}
     {{form.email}}
-
+    <br>
     {{ form.password1.label }}
     {{form.password1}}
-
+    <br>
     {{ form.password2.label }}
     {{form.password2}}
-
+    <br>
     <input type="submit" name ="Create User">
     <p>Already signed up <a href="/signin"><b>Sign in</b></a></p>
 
 </form>
+  </body>
+</html>
+
+
+
+
+
+

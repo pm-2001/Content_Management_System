@@ -6,15 +6,18 @@
             <div class="col-md-5" >
               <div class="card mb-4 box-shadow">
                 <div class="card-body">
-                  <p class="card-text">{{i.username}}</p>
+                  <p class="card-text">{{i.title}}  -  {{i.username}} <small class="text-muted" style="margin-left:40%">{{i.date}}</small> </p>
                   <img class ="card-img-top" height="200px" alt="" src="{{i.images.url}}">
-                  <p class="card-text">{{i.title}}</p>
                   <p class="card-text">{{i.body}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-sm btn-outline-secondary">Read more</button>
+                      <button type="button" class="btn btn-success">Edit</button>
+                      <button type="button" class="btn btn-danger">Delete</button>
                     </div>
-                    <small class="text-muted">{{i.date}}</small>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-outline-info">
+                        <a href = "{% url 'postdetail' i.id %}">Readmore</a></button>
+                    </div>
                   </div>
                 </div>
               </div>
