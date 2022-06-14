@@ -12,4 +12,6 @@ class CreateUserForm(UserCreationForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields ='__all__'   
+        fields ='__all__'
+        template_name='post.html'   
+        # fields = ('title',)   

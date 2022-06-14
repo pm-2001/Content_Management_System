@@ -1,5 +1,16 @@
-<h1>{{post.title}}</h1>
-<small>By {{post.username}} </small>
-<hr>
+{%extends 'base.html'%}
+{%block title%}Readmore{%endblock title%}
+{% block body %}
+<div style="margin-left:1%">
+    <h1>{{post.title}}</h1>
+    <small>By {{post.username}} </small>
+    <hr>
+    <br>
+    {{post.body}}
+</div>
 <br>
-{{post.body}}
+<br>
+<div style="margin-left:1%">
+    <button class="btn btn-outline-info" type="Back"><a href="{% url 'home' %}">Back</a></button>
+</div>
+{% endblock body %}

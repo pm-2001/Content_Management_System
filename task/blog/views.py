@@ -10,7 +10,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 from .forms import ImageForm
-from django.views.generic import DetailView
+from django.views.generic import DetailView,UpdateView,DeleteView
 
 
 def home(request):
@@ -24,6 +24,16 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'postdetail.html'
 
+class UpdatePostView(UpdateView):
+    model= Post
+    template_name = 'update_post.html'
+    fields = ['title','body','image']
+
+class DeletePostView(UpdateView):
+    model= Post
+    template_name = 'update_post.html'
+    fields = ['title','body','image']
+
 def about(request):
     return render(request,'about.html')
 
@@ -36,9 +46,9 @@ def posts(request):
         if form.is_valid():
             form.save()       
     #     title = request.POST.get('title')
-    #     username = request.POST.get(request.user)
+        # username = request.POST.get(request.user)
     #     body = request.POST.get('body')
-    #     posts= Post(title=title,username=request.user,body=body,date = datetime.today())
+        # posts= Post(username=request.user,date = datetime.today())
     #     posts.save() 
     context = {'form':form}
     return render(request,'posts.html',context)

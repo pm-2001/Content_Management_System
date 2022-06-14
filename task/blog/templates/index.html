@@ -11,7 +11,7 @@
                   <p class="card-text">{{i.body}}</p>
                   <div class="d-flex justify-content-between align-items-center">
                     <div class="btn-group">
-                      <button type="button" class="btn btn-success">Edit</button>
+                      <button type="button" class="btn btn-success"><a href = "{% url 'update_post' i.id %}">Edit</a></button>
                       <button type="button" class="btn btn-danger">Delete</button>
                     </div>
                     <div class="btn-group">

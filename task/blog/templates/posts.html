@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{%block title%}Posts{%endblock title%}
+{%block title%}Create post{%endblock title%}
 {% block body %}
 <div class ="container" py-40 mb-30>
 <form method="post" action="" enctype="multipart/form-data">
@@ -22,15 +22,25 @@
     </div> {% endcomment %}
     {% comment %} {{ form.image.label }} {% endcomment %}
     {% comment %} {{form}} {% endcomment %}
-    {{ form.as_p }}
-    <button type="submit">Upload</button>
+    {% comment %} <br>
+    {{ form.title.label }}
+    {{ form.title }}
+    <br>
+    <br>
+    {{ form.body.label }}
+    {{ form.body }}
+    <br>
+    {{ form.image.label }}
+    {{ form.image }} {% endcomment %}
+    {{form.as_p}}
+    <br>
+    <br>
+    <button class="btn btn-primary" type="submit">Submit</button>           
   </form>
   
   {% if img_obj %}
     <h3>Succesfully uploaded : {{img_obj.title}}</h3>
     <img src="{{ img_obj.image.url}}" alt="connect" style="max-height:300px">
   {% endif %}
-    {% comment %} <br>
-    <br>
-      <button class="btn btn-primary" type="submit">Submit</button> {% endcomment %}
+    
 {% endblock body %}
