@@ -1,0 +1,33 @@
+{%extends 'base.html'%}
+{%block title%}Delete post{%endblock title%}
+{% block body %}
+
+<div style="margin-left:1%">
+    <h1>{{post.title}}</h1>
+    <small>By {{post.username}} </small>
+        <hr>
+        <br>
+        <img height="400px" alt="" src="{{post.image.url}}"> 
+        <br>
+        <br>
+        {{post.body}}
+</div>
+<br>
+<br>
+<div style="margin-left:40%">         
+<strong>Are you sure want to delete post !</strong>
+</div>
+<div class ="container" py-40 mb-30>
+    <form method="POST" action="" >
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <br>
+        <button type="button" class="btn btn-danger">Delete</button>       
+      </form>
+    </div>
+<a href="{% url 'home' %}"><button class="btn btn-outline-info" type="Back">Back</button></a>                  
+    
+{% endblock body %}
+
+

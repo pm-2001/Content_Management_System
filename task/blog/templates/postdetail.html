@@ -6,14 +6,16 @@
     <small>By {{post.username}} </small>
     <hr>
     <br>
-    {%for i in posts %}
-        <img height="200px" alt="" src="{{i.image.url}}">
-    {%endfor%}
+    {% comment %} {%for i in posts %} {% endcomment %}
+    <img height="400px" alt="" src="{{post.image.url}}">
+    <br>
+    <br>
+    {% comment %} {%endfor%} {% endcomment %}
     {{post.body}}
 </div>
 <br>
 <br>
 <div style="margin-left:1%">
-    <button class="btn btn-outline-info" type="Back"><a href="{% url 'home' %}">Back</a></button>
+    <a href="{% url 'home' %}"><button class="btn btn-outline-info" type="Back">Back</button></a>
 </div>
 {% endblock body %}

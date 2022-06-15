@@ -34,18 +34,18 @@
                 <a class="nav-link" href="/about">About</a>
               </li>
             </ul>
-            
-            {% if user.is_authenticated %}<p style="color:white ; vertical-align:-2%">Hello, {{request.user}}</p>
-            {% else %}
-            <button type="button" class="btn btn-outline-primary" ><a href="/register">Sign up</a><button>
-            {% endif %}
-          
+              <div style ="vertical-align:-2%">
+                {% if user.is_authenticated %}<p style="color:white" >Hello, {{request.user}}</p>
+                {% else %}
+                <button type="button" class="btn btn-outline-primary" ><a href="/register">Sign up</a><button>
+                {% endif %}
+              </div>
             <div style="margin-left:50%">
               <a href="/logout" style="margin-right:10%">Logout</a>
             </div>
             <form class="d-flex">
               <input class="form-control me-2" type="search" placeholder="Search here" aria-label="Search">
-              <button class="btn btn-outline-success" type="button"><a href = "/posts" target = "_blank">Create</a></button>
+              <a href = "/posts" target = "_blank"><button class="btn btn-outline-success" type="button">Create</button></a>
              
             </form>
           </div>

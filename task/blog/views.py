@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CreateUserForm
 from .forms import ImageForm
 from django.views.generic import DetailView,UpdateView,DeleteView
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -29,9 +30,10 @@ class UpdatePostView(UpdateView):
     template_name = 'update_post.html'
     fields = ['title','body','image']
 
-class DeletePostView(UpdateView):
+class DeletePostView(DeleteView):
     model= Post
     template_name = 'delete_post.html'
+    success_url= reverse_lazy('home')
 
 def about(request):
     return render(request,'about.html')
