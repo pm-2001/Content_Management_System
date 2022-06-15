@@ -6,6 +6,9 @@
     <small>By {{post.username}} </small>
     <hr>
     <br>
+    {%for i in posts %}
+        <img height="200px" alt="" src="{{i.image.url}}">
+    {%endfor%}
     {{post.body}}
 </div>
 <br>

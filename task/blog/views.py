@@ -31,8 +31,7 @@ class UpdatePostView(UpdateView):
 
 class DeletePostView(UpdateView):
     model= Post
-    template_name = 'update_post.html'
-    fields = ['title','body','image']
+    template_name = 'delete_post.html'
 
 def about(request):
     return render(request,'about.html')
