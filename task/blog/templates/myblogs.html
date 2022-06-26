@@ -1,0 +1,30 @@
+{%extends 'base.html'%}
+{% block body %}
+{%for i in posts %}
+          <div class="row">
+            <div class="col-md-5" >
+              <div class="card mb-4 box-shadow">
+                <div class="card-body">
+                  <p class="card-text">{{i.title}}  -  {{i.username}} <small class="text-muted" style="margin-left:50%">{{i.date}}</small> </p>
+                  {% if i.image %}
+                  <img class ="card-img-top" height="250px" alt="" src="{{i.image.url}}">
+                  {% endif %}
+                  <p class="card-text">{{i.body|safe}}</p>
+                  {% if user.is_authenticated %}
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                      <a href = "{% url 'update_post' i.id %}"><button type="button" class="btn btn-success">Edit</button></a>
+                      <a href = "{% url 'delete_post' i.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
+                    </div>
+                  {% endif %}
+                    <div class="btn-group">
+                      <a href = "{% url 'postdetail' i.id %}"><button type="button" class="btn btn-outline-info">
+                        Readmore</button></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{%endfor%}
+{% endblock body %}

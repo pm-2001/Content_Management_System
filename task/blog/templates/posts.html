@@ -1,9 +1,21 @@
 {%extends 'base.html'%}
 {%block title%}Create post{%endblock title%}
 {% block body %}
+<style>
+  .form{
+    display: flex;
+    flex-direction: column;
+  }
+  .form.title{
+    width: 50px;
+  }
+</style>
 <div class ="container" py-40 mb-30>
 <form method="post" action="" enctype="multipart/form-data">
     {% csrf_token %}
+    <br>
+    <br>
+    <br>
     {% comment %} <div class="form-group">
         <label for="username">Username</label>
         <input type="text" class="form-control" name="username" id="subtitle" placeholder="username">
@@ -23,8 +35,10 @@
     {% comment %} {{ form.image.label }} {% endcomment %}
     {% comment %} {{form}} {% endcomment %}
     {% comment %} <br>
+    <div class ="title">
     {{ form.title.label }}
     {{ form.title }}
+    </div>
     <br>
     <br>
     {{ form.body.label }}
@@ -32,7 +46,18 @@
     <br>
     {{ form.image.label }}
     {{ form.image }} {% endcomment %}
-    {{form.as_p}}
+    <div class = "form">
+    {{form.media}}
+    {{form.title.label}}
+    {{form.title}}
+    <div style="display:none;">
+    {{form.username}}
+    </div>
+    {{form.body.label}}
+    {{form.body}}
+    {{form.image.label}}
+    {{form.image}}
+  </div>
     <br>
     <br>
     <button class="btn btn-primary" type="submit">Submit</button>           

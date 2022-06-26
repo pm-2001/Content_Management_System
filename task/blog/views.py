@@ -41,16 +41,18 @@ def about(request):
     # return HttpResponse("This is about page")
 @login_required(login_url='signin')
 def posts(request):
-    form = ImageForm()
+    user=request.user
+    form = ImageForm(initial={'username':user})
     if request.method == "POST":
         form = ImageForm(request.POST,request.FILES)
         if form.is_valid():
-            form.save()       
+            form.save() 
+            return redirect("/")      
     #     title = request.POST.get('title')
         # username = request.POST.get(request.user)
     #     body = request.POST.get('body')
-        # posts= Post(username=request.user,date = datetime.today())
-    #     posts.save() 
+        # posts= Post(username=request.user.username,date = datetime.today())
+        # posts.save()
     context = {'form':form}
     return render(request,'posts.html',context)
 
@@ -75,11 +77,14 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-        # # user = authenticate(password1= "password2")
-        # if (password1=password2):    
+            return redirect('home')
+        else:
+            return render(request,'signin.html')
+        # if user is not None:
+        #     login(request,user)
         #     return redirect("/")
         # else:
-        #     return render(request,'register.html')
+        #     return render(request,'signin.html')
     context = {'form':form}
     return render(request,'register.html',context)
 
@@ -98,3 +103,10 @@ def signin(request):
 def logoutUser(request):
     logout(request)
     return render(request,'signin.html')
+
+@login_required(login_url='signin')
+def myblogs(request):
+    user=request.user
+
+    posts = user.post_set.filter(username=user)
+    return render(request,'myblogs.html',{'posts':posts})

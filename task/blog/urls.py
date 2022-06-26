@@ -14,4 +14,5 @@ urlpatterns = [
     path('logout',views.logoutUser, name='logout'),
     path('article/edit/<int:pk>',views.UpdatePostView.as_view(),name='update_post'),
     path('article/delete/<int:pk>',views.DeletePostView.as_view(),name='delete_post'),
+    path('myblogs',views.myblogs, name='myblogs'),
 ]

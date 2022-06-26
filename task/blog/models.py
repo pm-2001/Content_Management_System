@@ -6,6 +6,7 @@ from django.db import models
 from django.forms import CharField
 from django.contrib.auth.models import User
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 
 # Create your models here.
 class Contact(models.Model):
@@ -20,10 +21,11 @@ class Contact(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=50)
-    username = models.CharField(max_length=50)
-    body = models.TextField()
+    username = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
+    body = RichTextField(blank=True,null=True)
+    # body = models.TextField()
     date = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to = "images/",null=False,blank=True,default='images/a.png')
+    image = models.ImageField(upload_to = "images/",null=True,blank=True,default='images/a.png')
     class Meta:
         ordering=['-date']
 

@@ -9,9 +9,16 @@ class CreateUserForm(UserCreationForm):
         model = User
         fields = ['username','email','password1','password2']
 
+        # widgets = {
+        #     'username': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'email': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'password1': forms.TextInput(attrs={'class': 'form-control'}),
+        #     'password2': forms.TextInput(attrs={'class': 'form-control'}),
+        # }
+
 class ImageForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields ='__all__'
+        fields =['title','username','body','image']
         template_name='post.html'   
         # fields = ('title',)   

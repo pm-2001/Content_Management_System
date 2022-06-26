@@ -2,12 +2,15 @@
 {%block title%}Edit post{%endblock title%}
 {% block body %}
 <div class ="container" py-40 mb-30>
-<form method="POST" action="" >
+  <form method="POST" action="" enctype = "multipart/form-data">
     {% csrf_token %}
-    {{form.as_p}}
+    <table>
+    {{form.media}}
+    {{form.as_table}}
     <br>
     <br>
-    <button class="btn btn-primary" type="edit">Edit</button>           
+    </table>         
+    <button class="btn btn-primary" type="edit">Edit</button>
   </form>
     
 {% endblock body %}
