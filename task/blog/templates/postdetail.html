@@ -7,7 +7,7 @@
     <hr>
     <br>
     {% comment %} {%for i in posts %} {% endcomment %}
-    <img height="400px" alt="" src="{{post.image.url}}">
+    <img height="400px" src="{{post.image.url}}">
     <br>
     <br>
     {% comment %} {%endfor%} {% endcomment %}
@@ -20,4 +20,11 @@
 <div style="margin-left:1%">
     <a href="{% url 'home' %}"><button class="btn btn-outline-info" type="Back">Back</button></a>
 </div>
+<br><br>
+<hr>
+<br>
+<form action="{% url 'like_post' post.pk %}" method="POST">
+    {% csrf_token %}
+    <button type="submit" , name="post_id" , value="{{post.id}}", class="btn btn-primary btn-sm" >Like</button>
+</form>
 {% endblock body %}

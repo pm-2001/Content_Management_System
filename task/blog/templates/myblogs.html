@@ -1,4 +1,5 @@
 {%extends 'base.html'%}
+{%block title%}my blogs{%endblock title%}
 {% block body %}
 {%for i in posts %}
           <div class="row">
@@ -7,7 +8,7 @@
                 <div class="card-body">
                   <p class="card-text">{{i.title}}  -  {{i.username}} <small class="text-muted" style="margin-left:50%">{{i.date}}</small> </p>
                   {% if i.image %}
-                  <img class ="card-img-top" height="250px" alt="" src="{{i.image.url}}">
+                  <img class ="card-img-top" height="250px" src="{{i.image.url}}">
                   {% endif %}
                   <p class="card-text">{{i.body|safe}}</p>
                   {% if user.is_authenticated %}

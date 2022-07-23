@@ -1,20 +1,145 @@
-
-
-.row{
-    display: flex;
-    justify-content: center;
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
     align-items: center;
-    
+}
+body{
+    background-color:#cbf2f0ee;
 }
 
-.col-md-5{
-    padding-top: 10px;
-    padding-left: 40px;
-}
-.card{
-    border-radius: 18.25;
+nav{
+    height: 60px;
+    background: #426d66;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    padding: 0px 10px 0px 30px;
 }
 
-body {
-    background-color: rgb(208, 224, 238);
+nav .logo a{
+    font-size: 33px;
+    color: aliceblue;
+    font-weight: 600;
+    text-decoration: none;
+    background: #078a51;
+    border-radius: 5px;
+    padding: 1px 10px 1px 10px;
+
+}
+nav ul{
+    display: flex;
+    list-style: none;
+}
+nav ul li{
+    margin: 0px 5px;
+}
+nav ul li a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border-style: solid;
+    border-color: #078a51;
+    border-width: 2px;
+    border-radius: 9px;
+    padding: 4px 10px;
+}
+nav ul li a:hover{
+    background: #078a51;
+    color: #081210;
+}
+
+nav .menu-btn i{
+    color: rgb(255, 255, 255);
+    font-size: 22px;
+    cursor: pointer;
+    display: none;
+}
+.user a{
+    text-decoration: none;
+    color: aliceblue;
+    border-color: #078a51;
+    margin: 1px 20px;
+    padding: 8px 10px;
+    border-style: solid;
+    border-radius: 50px;
+}
+.user a:hover{
+    background: #078a51;
+    color: #081210;
+}
+nav ul ul {
+    display: none;
+}
+nav ul li:hover > ul{
+    display: block;
+    position: absolute;
+    border-radius: 5px;
+    margin-left: -50px;
+    margin-right: 10px;
+    margin-top: -30px;
+    padding-top: 30px;
+}
+nav ul li ul .submenu{
+    background: #426d66;
+    border-radius: 5px;
+    width: auto;
+    height: auto;
+}
+
+#click{
+    display: none;
+}
+nav ul li ul li{
+    margin-top: 25px;
+    margin-right: 10px;
+}
+
+@media (max-width:940px){
+    nav .menu-btn i{
+        display: block;
+    }
+    #click:checked~ul{
+        left: 0%;
+    }
+    #click:checked~.menu-btn i:before{
+        content: "\f00d";
+    }
+    nav ul{
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        background: #426d66;
+        height: 100vh;
+        width: 100%;
+        display: block;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    nav ul li{
+        margin: 10px 0px;
+    }
+    nav ul li a{
+        font-size: 20px;
+        display: block;
+
+    }
+    nav ul li a:hover,nav ul li a.active{
+        background: none;
+        color: cyan;
+    }
+    nav ul li:hover > ul{
+        display: block;
+        position: absolute;
+        border-radius: 5px;
+        margin-left: -50px;
+        margin-right: 10px;
+        margin-top: -30px;
+        padding-top: 30px;
+    }
+
 }

@@ -1,6 +1,7 @@
 
 from ast import Subscript
-from django.shortcuts import render,HttpResponse,redirect
+from audioop import reverse
+from django.shortcuts import render,HttpResponse,redirect,get_list_or_404
 from datetime import datetime
 from blog.models import Contact
 from blog.models import Post
@@ -12,6 +13,8 @@ from .forms import CreateUserForm
 from .forms import ImageForm
 from django.views.generic import DetailView,UpdateView,DeleteView
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 def home(request):
@@ -33,7 +36,7 @@ class UpdatePostView(UpdateView):
 class DeletePostView(DeleteView):
     model= Post
     template_name = 'delete_post.html'
-    success_url= reverse_lazy('home')
+    success_url= reverse_lazy('myblogs')
 
 def about(request):
     return render(request,'about.html')
@@ -65,6 +68,7 @@ def contact(request):
         desc = request.POST.get('desc')
         contact = Contact(name=name, email=email, phone = phone, desc=desc,date = datetime.today())
         contact.save()
+        messages.success(request,'Submitted successfully')
     return render(request,'contact.html')
 
 
@@ -77,9 +81,11 @@ def register(request):
         form = CreateUserForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            messages.success(request,'Your account has been created successfully')
+            return redirect('signin')
         else:
-            return render(request,'signin.html')
+            messages.success(request,"password didn't match!")
+            return render(request,'register.html')
         # if user is not None:
         #     login(request,user)
         #     return redirect("/")
@@ -97,6 +103,7 @@ def signin(request):
             login(request,user)
             return redirect("/")
         else:
+            messages.success(request,'Username or password is incorrect!')
             return render(request,'signin.html')
     return render(request,'signin.html')
 
@@ -110,3 +117,8 @@ def myblogs(request):
 
     posts = user.post_set.filter(username=user)
     return render(request,'myblogs.html',{'posts':posts})
+
+def LikeView(request,pk):
+    post=get_list_or_404(Post,id=request.POST.get('post_id'))
+    post.likes.add(request.user)
+    return HttpResponseRedirect(reverse('postdetail' , args=[str(pk)]))

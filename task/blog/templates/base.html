@@ -1,171 +1,42 @@
-{% load static %}
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
- 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
-   <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
-   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-   <link rel="stylesheet" href="{% static '/blog/style.css' %}">
-   <style>
-    .hoverable{
-      display:inline-block;
-      backface-visibility: hidden;
-      vertical-align: middle;
-      position:relative;
-      box-shadow: 0 0 1px rgba(0,0,0,0);
-      transform: translateZ(0);
-      transition-duration: .3s;
-      transition-property:transform;
-    }
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
     
-    .hoverable:before{
-      position:absolute;
-      pointer-events: none;
-      z-index:-1;
-      content: '';
-      top: 100%;
-      left: 5%;
-      height:10px;
-      width:90%;
-      opacity:0;
-      background: -webkit-radial-gradient(center, ellipse, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
-      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0) 80%);
-      /* W3C */
-      transition-duration: 0.3s;
-      transition-property: transform, opacity;
-    }
-    
-    .hoverable:hover, .hoverable:active, .hoverable:focus{
-      transform: translateY(-5px);
-    }
-    .hoverable:hover:before, .hoverable:active:before, .hoverable:focus:before{
-      opacity: 1;
-      transform: translateY(-5px);
-    }
-    
-    
-    
-    @keyframes bounce-animation {
-      16.65% {
-        -webkit-transform: translateY(8px);
-        transform: translateY(8px);
-      }
-    
-      33.3% {
-        -webkit-transform: translateY(-6px);
-        transform: translateY(-6px);
-      }
-    
-      49.95% {
-        -webkit-transform: translateY(4px);
-        transform: translateY(4px);
-      }
-    
-      66.6% {
-        -webkit-transform: translateY(-2px);
-        transform: translateY(-2px);
-      }
-    
-      83.25% {
-        -webkit-transform: translateY(1px);
-        transform: translateY(1px);
-      }
-    
-      100% {
-        -webkit-transform: translateY(0);
-        transform: translateY(0);
-      }
-    }
-    
-    .bounce {
-      animation-name: bounce-animation;
-      animation-duration: 2s;
-    }
-    
-    
-    
-    /*everything below here is just setting up the page, so dont worry about it */
-    
-    
-    @media (min-width: 768px) {
-      .navbar{
-        text-align: center !important;
-        float: none;
-        display: inline-block;
-      }
-    }
-    
-    body {
-      background-color: rgba(203, 242, 240, 0.932);
-      font-weight:600;
-      /* text-align:center !important; */
-      color: rgb(0, 0, 0);
-    }
-    
-    
-    ul a{
-      text-decoration: none;
-     
-      border-radius: 5px;
-      background-color: rgb(23, 30, 45);
-    }
-    
-    .page-title {
-      opacity: .75 !important;
-    }
-    .container-fluid{
-      background-color: rgb(66, 109, 102);
-    }
-  </style>    
-
+    <link rel="stylesheet" href="/static/blog/style.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/fonts/fontawesome-webfont.svg"> -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <link href="/static/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet">
     <title>{%block title %}Blogs{%endblock title%}</title>
-  </head>
-  <body>
-    <div class="container-fluid" >
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-          <ul class="nav navbar-nav d-flex flex-row">
-            <a id="len2" class="hoverable my-1 mx-2 px-2 py-1" href="/">Blogs</a>
-            <a id="len1" class="hoverable my-1 mx-2 px-2 py-1" href="/myblogs">My Blogs</a>
-            <a id="len2" class="hoverable my-1 mx-2 px-2 py-1" href="/contact">Contact</a>
-            <a id="len2" class="hoverable my-1 mx-2 px-2 py-1" href="/about">About</a>
-          </ul>
-            {% if user.is_authenticated %}
-              <div style ="vertical-align:-2%">
-                <p style="color:white" >Hello, {{request.user}}</p>
-              </div>
-                <div >
-                  <form class="d-flex">
-                    <a href = "/posts" target = "_blank" id="len2" class="hoverable my-1 mx-2 px-2 py-1"><button class="btn btn-outline-success" type="button">Create</button></a> 
-                  </form>
-                </div>
-                
-              {% else %}
-                <a href="/register"><button type="button" class="btn btn-outline-primary">Sign up</button></a>
-              {% endif %}
-            </div>
-            <!-- <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search here" aria-label="Search">
-            </form> -->         
-            {% if user.is_authenticated %}
-            <a id="len2" class="hoverable my-1 mx-2 px-2 py-1" href="/logout"><button type="button" class="btn btn-danger">Logout</button></a>
-            {% endif %}
-          
-        </div>
-      </nav>
-    </div>
-    {{ post.body|safe }}
+</head>
+<body>
+    <nav>
+        <div class="logo"><a href="/">Blogs</a></div>
+        <input type="checkbox" id="click">
+        <label for="click" class="menu-btn"><i class="fas fa-bars"></i></label>
+        <ul>
+            
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/about">About</a></li>
+            {% if user.is_authenticated %}<li><div class="user"><a href="#"><i class="fa-solid fa-user"></i></a></div>
+                    <ul>
+                       <div class="submenu">
+                        <li><p style="color:white" >Hello,{{request.user}}</p></li>
+                        {% if user.is_authenticated %}<li><a href="/myblogs">My blogs</a></li>{% endif %}
+                        <li><a href="/posts">Create</a></li>
+                        <li><a href="/logout">Logout</a></li>
+                        {% else %}
+                        <li><a href="/signin">Sign in</a></li>
+                        {% endif %}
+                        </div>
+                    </ul>  
+            </li>
+        </ul>
+    </nav>
     {% block body %}
     {% endblock body %}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-
-   
-  </body>
+</body>
 </html>
