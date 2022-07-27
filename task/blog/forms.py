@@ -2,7 +2,7 @@
 from django.contrib.auth.forms import UserCreationForm 
 from django.contrib.auth.models import User
 from django import forms
-from .models import Post
+from .models import Post,Comment
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -22,3 +22,13 @@ class ImageForm(forms.ModelForm):
         fields =['title','username','body','image']
         template_name='post.html'   
         # fields = ('title',)   
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('name','body')
+
+        widgets= {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'}),
+        }

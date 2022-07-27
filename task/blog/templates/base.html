@@ -8,22 +8,23 @@
     <link rel="stylesheet" href="/static/blog/style.css">
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/fonts/fontawesome-webfont.svg"> -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link href="/static/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet">
     <title>{%block title %}Blogs{%endblock title%}</title>
 </head>
 <body>
     <nav>
-        <div class="logo"><a href="/">Blogs</a></div>
+        <div class="logo"><a href="/">BLOGS</a></div>
         <input type="checkbox" id="click">
         <label for="click" class="menu-btn"><i class="fas fa-bars"></i></label>
         <ul>
             
-            <li><a href="/contact">Contact</a></li>
+            <li><a href="/contact"><i class="fa-solid fa-message-quote"></i>Contact</a></li>
             <li><a href="/about">About</a></li>
             {% if user.is_authenticated %}<li><div class="user"><a href="#"><i class="fa-solid fa-user"></i></a></div>
                     <ul>
                        <div class="submenu">
-                        <li><p style="color:white" >Hello,{{request.user}}</p></li>
+                        <li><h4>Hello,{{request.user}}</h4></li>
                         {% if user.is_authenticated %}<li><a href="/myblogs">My blogs</a></li>{% endif %}
                         <li><a href="/posts">Create</a></li>
                         <li><a href="/logout">Logout</a></li>

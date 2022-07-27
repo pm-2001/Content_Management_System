@@ -21,7 +21,7 @@ class Contact(models.Model):
        return self.name
 
 class Post(models.Model):
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=50,null=True)
     username = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     body = RichTextUploadingField(blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)
@@ -31,9 +31,21 @@ class Post(models.Model):
     class Meta:
         ordering=['-date']
 
+    def total_likes(self):
+        return self.likes.count()
+
     def __str__(self):
        return self.title + ' | ' +str(self.username)
        
     def get_absolute_url(self):
         return reverse('home')
+
+class Comment(models.Model):
+    post=models.ForeignKey(Post,related_name="comments", on_delete=models.CASCADE,null=True)
+    name=models.CharField(max_length=255)
+    body=models.TextField()
+    date_added=models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+      return '%s - %s' %(self.post.title, self.name)
     

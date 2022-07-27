@@ -1,31 +1,209 @@
 {%extends 'base.html'%}
 {%block title%}my blogs{%endblock title%}
 {% block body %}
+{% comment %} <head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> {% endcomment %}
+
+  <style>
+      .modal-header{
+          background: orange;
+          color: white;
+      }
+  </style>
+</head>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;1,300&display=swap');
+
+body{
+  font-family: "Mulish",sans-serif;
+}
+
+.container{
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, .2);
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  width: 900px;
+  height: 30vh;
+  position: relative;
+  margin: 50px;
+}
+
+.container h6{ 
+  opacity: .6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.container h2{
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.preview img{ 
+  width: 50vh;
+  height: 35vh;
+
+}
+
+.info{
+  padding: 30px;
+  width: 100%;
+  padding-top: 0px;
+}
+
+.progress-text{
+  font-size: 10px;
+  opacity: .6;
+  letter-spacing: 1px;
+  margin-right: 0px;
+}
+
+.info p{
+  font-size: 12px;
+}
+
+.btn1{
+  background: #088f31;
+  border: 1px solid transparent;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, rgba(0, 0, 0, .2));
+  color: #fff;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 15px;
+  right: 260px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.btn1:hover{
+  background: #fff;
+  color: #e40046;
+  border: 1px solid #e40046;
+  transform: scale(1.05);
+}
+
+.btn2{
+  background: #e40046;
+  border: 1px solid transparent;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, rgba(0, 0, 0, .2));
+  color: #fff;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 15px;
+  right: 160px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.btn2:hover{
+  background: #fff;
+  color: #e40046;
+  border: 1px solid #e40046;
+  transform: scale(1.05);
+}
+
+.btn{
+  background: #544e50;
+  border: 1px solid transparent;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, rgba(0, 0, 0, .2));
+  color: #fff;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 15px;
+  right: 30px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.btn:hover{
+  background: #fff;
+  color: #e40046;
+  border: 1px solid #e40046;
+  transform: scale(1.05);
+}
+
+@media(max-width:768px){
+  .course{
+    flex-direction: column;
+    width: 90%;
+
+  }
+  .preview{
+    width: 100%;
+  }
+  .preview h2{
+    margin: 10px 0 0;
+  }
+  .preview a{
+    margin-top: 10px;
+  }
+  .info h2{
+    margin-top: 10px;
+  }
+  .info p{
+    margin-bottom: 50px;
+  }
+  .btn{
+    padding: 10px 15px;
+    font-size: 14px;
+    /* float: right; */
+  }
+}
+</style>
 {%for i in posts %}
-          <div class="row">
-            <div class="col-md-5" >
-              <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                  <p class="card-text">{{i.title}}  -  {{i.username}} <small class="text-muted" style="margin-left:50%">{{i.date}}</small> </p>
-                  {% if i.image %}
-                  <img class ="card-img-top" height="250px" src="{{i.image.url}}">
-                  {% endif %}
-                  <p class="card-text">{{i.body|safe}}</p>
-                  {% if user.is_authenticated %}
-                  <div class="d-flex justify-content-between align-items-center">
-                    <div class="btn-group">
-                      <a href = "{% url 'update_post' i.id %}"><button type="button" class="btn btn-success">Edit</button></a>
-                      <a href = "{% url 'delete_post' i.id %}"><button type="button" class="btn btn-danger">Delete</button></a>
-                    </div>
-                  {% endif %}
-                    <div class="btn-group">
-                      <a href = "{% url 'postdetail' i.id %}"><button type="button" class="btn btn-outline-info">
-                        Readmore</button></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+    <div class="container">
+      <div class="preview">
+        {% if i.image %}
+                  <img class ="card-img-top" src="{{i.image.url}}">
+        {% endif %}
+      </div>
+      <div class="info">
+          <span class="progress-text">{{i.date}}</span>
+        <h6>BY - {{i.username}} </h6>
+        <h2>{{i.title}}</h2>
+        <p class="p-trunc">{{ i.body | safe}}</p>
+        <a href = "{% url 'update_post' i.id %}"><button class="btn1">Edit</button></a>
+        <a href = "{% url 'delete_post' i.id %}"><button type="button" class="btn2" >Delete</button></a>
+        {% comment %} <a><button type="button" class="btn2" data-bs-toggle="modal" data-bs-target="#mymodal">Delete</button></a> {% endcomment %}
+        <a href = "{% url 'postdetail' i.id %}"><button class="btn">Read more</button></a>
+      </div>
+    </div>
+    {% comment %} <div class="modal" id="mymodal"> 
+      <div class="modal-dialog">
+        <div class="modal-content">
+          {% comment %} <div class="modal-header">
+            <h5 class="modal-title">contact us</h5>
+          </div> {% endcomment %}
+          {% comment %} <div class="modal-body">
+            <p>Are you sure want to delete ?</p>
+            <a href="{% url 'delete' i.id %}"><button type="delete" >Delete</button></a>   
+                
             </div>
+              <!-- <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-danger" data-bs-dismiss="modal">Cancel</button>
+              </div> -->
           </div>
-{%endfor%}
-{% endblock body %}
+      </div>
+    </div> {% endcomment %}
+
+  {% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> {% endcomment %}
+    {%endfor%}
+    {% endblock body %}

@@ -5,12 +5,14 @@
     align-items: center;
 }
 body{
-    background-color:#cbf2f0ee;
+    background-color: lightcoral;
+    background-attachment: fixed;
 }
 
 nav{
+   
     height: 60px;
-    background: #426d66;
+    background:linear-gradient(to right,#2989d8 0,#b524b5 52%,#f4af84 100%);
     display: flex;
     align-items: center;
     justify-content:space-between;
@@ -19,10 +21,10 @@ nav{
 
 nav .logo a{
     font-size: 33px;
-    color: aliceblue;
+    color: #9b5db6;
     font-weight: 600;
     text-decoration: none;
-    background: #078a51;
+    background: linear-gradient(to right,#2989d8 0,#ffffff 52%,#2a8bdb50 100%);
     border-radius: 5px;
     padding: 1px 10px 1px 10px;
 
@@ -43,7 +45,7 @@ nav ul li a{
     padding: 8px 10px;
     border-radius: 5px;
     border-style: solid;
-    border-color: #078a51;
+    border-color: #dfce52;
     border-width: 2px;
     border-radius: 9px;
     padding: 4px 10px;
@@ -78,17 +80,26 @@ nav ul ul {
 nav ul li:hover > ul{
     display: block;
     position: absolute;
-    border-radius: 5px;
-    margin-left: -50px;
-    margin-right: 10px;
-    margin-top: -30px;
-    padding-top: 30px;
+    margin-left: -100px;
+    margin-right: 0px;
+    margin-top: -10px;
+    padding-top: 40px;
+    
 }
 nav ul li ul .submenu{
+    margin-top: 0px;
+    margin-right: 0px;
+    padding: 1px 20px;
     background: #426d66;
-    border-radius: 5px;
-    width: auto;
-    height: auto;
+    border-radius: 10px;
+    padding-bottom: 40px;
+
+}
+
+ .submenu h4{
+    color: antiquewhite;
+    text-transform: uppercase;
+
 }
 
 #click{

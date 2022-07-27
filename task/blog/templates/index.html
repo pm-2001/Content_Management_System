@@ -1,32 +1,163 @@
 {%extends 'base.html'%}
 {%block title%}blogs{%endblock title%}
 {% block body %}
+<style>
+  /* The alert message box */
+.alert {
+  padding: 10px 10px 10px 10px;
+  background-color: #dddddd; /* Red */
+  color: rgb(0, 0, 0);
+  margin: auto;
+  width: max-content;
+  height: 10%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* The close button */
+.closebtn {
+  margin-left: 15px;
+  color: rgb(0, 0, 0);
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;1,300&display=swap');
+
+body{
+  font-family: "Mulish",sans-serif;
+}
+
+.container{
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 10px 10px rgba(0, 0, 0, .2);
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+  width: 900px;
+  height: 30vh;
+  position: relative;
+  margin: 50px;
+}
+
+.container h6{ 
+  opacity: .6;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.container h2{
+  letter-spacing: 1px;
+  margin: 10px 0;
+}
+
+.preview img{ 
+  width: 50vh;
+  height: 35vh;
+
+}
+
+.info{
+  padding: 30px;
+  width: 100%;
+  padding-top: 0px;
+}
+
+.progress-text{
+  font-size: 10px;
+  opacity: .6;
+  letter-spacing: 1px;
+  margin-right: 0px;
+}
+
+.info p{
+  font-size: 12px;
+}
+
+.btn{
+  background: #e40046;
+  border: 1px solid transparent;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, rgba(0, 0, 0, .2));
+  color: #fff;
+  padding: 10px 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all .4s ease-in-out;
+  font-weight: bold;
+  border-radius: 20px;
+}
+
+.btn:hover{
+  background: #fff;
+  color: #e40046;
+  border: 1px solid #e40046;
+  transform: scale(1.05);
+}
+
+@media(max-width:768px){
+  .course{
+    flex-direction: column;
+    width: 90%;
+
+  }
+  .preview{
+    width: 100%;
+  }
+  .preview h2{
+    margin: 10px 0 0;
+  }
+  .preview a{
+    margin-top: 10px;
+  }
+  .info h2{
+    margin-top: 10px;
+  }
+  .info p{
+    margin-bottom: 50px;
+  }
+  .btn{
+    padding: 10px 15px;
+    font-size: 14px;
+    /* float: right; */
+  }
+}
+</style>
+
+{%for msg in messages%}
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+  </div>
+  {%endfor%}
 {%for i in posts %}
-          <div class="row">
-            <div class="col-md-5" >
-              <div class="card mb-4 box-shadow">
-                <div class="card-body">
-                  <p class="card-text">{{i.title}}  -  {{i.username}} <small class="text-muted" style="margin-left:50%">{{i.date}}</small> </p>
-                  {% if i.image %}
-                  <img class ="card-img-top" height="250px" src="{{i.image.url}}">
-                  {% endif %}
-                  <p class="card-text">{{i.body | safe}}</p>
-                    <div class="btn-group">
-                      <a href = "{% url 'postdetail' i.id %}"><button type="button" class="btn btn-outline-info">
-                        Readmore</button></a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        {%endfor%}
-        <footer class="text-muted">
-          <div class="container">
-            <p class="float-right">
-              <a href="#">Back to top</a>
-            </p>
-          </div>
-        </footer>
+    <div class="container">
+      <div class="preview">
+        {% if i.image %}
+                  <img class ="card-img-top" src="{{i.image.url}}">
+        {% endif %}
+      </div>
+      <div class="info">
+          <span class="progress-text">{{i.date}}</span>
+        <h6>BY - {{i.username}} </h6>
+        <h2>{{i.title}}</h2>
+        <p class="p-trunc">{{ i.body | safe}}</p>
+        <a href = "{% url 'postdetail' i.id %}"><button class="btn">Read more</button></a>
+      </div>
+    </div>
+  
+  <script>
+    const trunc = document.querySelector('.p-trunc');
+    trunc.innerText= trunc.innerText.substring(0,20)
+  </script>
+{%endfor%}
+
     
 {% endblock body %}
