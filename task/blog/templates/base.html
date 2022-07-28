@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/fonts/fontawesome-webfont.svg"> -->
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <link href="/static/fontawesome-free-6.1.1-web/css/all.css" rel="stylesheet">
     <title>{%block title %}Blogs{%endblock title%}</title>
 </head>
@@ -19,12 +20,12 @@
         <label for="click" class="menu-btn"><i class="fas fa-bars"></i></label>
         <ul>
             
-            <li><a href="/contact"><i class="fa-solid fa-message-quote"></i>Contact</a></li>
-            <li><a href="/about">About</a></li>
+            <!-- <li><a href="/contact"><i class="fa-solid fa-message-quote"></i>Contact</a></li> -->
+            <!-- <li><a href="/about">About</a></li> -->
             {% if user.is_authenticated %}<li><div class="user"><a href="#"><i class="fa-solid fa-user"></i></a></div>
                     <ul>
                        <div class="submenu">
-                        <li><h4>Hello,{{request.user}}</h4></li>
+                        <li><h4>Hello, {{request.user}}</h4></li>
                         {% if user.is_authenticated %}<li><a href="/myblogs">My blogs</a></li>{% endif %}
                         <li><a href="/posts">Create</a></li>
                         <li><a href="/logout">Logout</a></li>
@@ -38,6 +39,25 @@
     </nav>
     {% block body %}
     {% endblock body %}
-
+    <footer>
+        <div class="waves">
+            <div class="wave" id="wave1"></div>
+            <div class="wave" id="wave2"></div>
+            <div class="wave" id="wave3"></div>
+            <div class="wave" id="wave4"></div>
+        </div>
+        
+        <ul class="social_icon">
+            <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            <li><a href="#"><ion-icon name="link"></ion-icon></a></li>
+            <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+            <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
+        </ul>
+        <ul class="menu">
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <p>@2022 Blogs | All Rights Reserved</p>
+    </footer>
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
 </body>
 </html>

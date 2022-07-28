@@ -23,16 +23,33 @@ def home(request):
     posts = Post.objects.all()
     return render(request,'index.html',{'posts':posts})
 
+def LikeView(request, pk):
+    post=get_object_or_404(Post,id=request.POST.get('post_id'))
+    liked = False
+    if post.likes.filter(id=request.user.id).exists():
+        post.likes.remove(request.user)
+        liked=False
+    else:
+        post.likes.add(request.user)
+        liked=True
+    return HttpResponseRedirect(reverse('postdetail' , args=[str(pk)]))
+
 class PostDetail(DetailView):
     model = Post
     template_name = 'postdetail.html'
 
-    # def get_context_data(self,*args,**kwargs):
-    #     context = super(PostDetail, self).get_context_data(**kwargs)
-    #     stuff=get_object_or_404(Post, id=self.kwargs['pk'])
-    #     total_likes= stuff.total_likes()
-    #     context["total_likes"] = total_likes
-    #     return context
+    def get_context_data(self,*args,**kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
+        stuff=get_object_or_404(Post, id=self.kwargs['pk'])
+        total_likes = stuff.total_likes()
+        liked = False
+
+        if stuff.likes.filter(id = self.request.user.id).exists():
+            liked=True
+
+        context["total_likes"] = total_likes
+        context[" liked "] = liked
+        return context
 
 class UpdatePostView(UpdateView):
     model= Post
@@ -131,10 +148,6 @@ def myblogs(request):
     posts = user.post_set.filter(username=user)
     return render(request,'myblogs.html',{'posts':posts})
 
-def LikeView(request, pk):
-    post=get_object_or_404(Post,id=request.POST.get('post_id'))
-    post.likes.add(request.user)
-    return HttpResponseRedirect(reverse('postdetail' , args=[str(pk)]))
 
 class AddCommentView(CreateView):
     model = Comment
