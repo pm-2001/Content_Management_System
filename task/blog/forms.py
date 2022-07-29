@@ -19,7 +19,7 @@ class CreateUserForm(UserCreationForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields =['title','username','body','image']
+        fields =['title','username','body','image','snippet']
         template_name='post.html'   
         # fields = ('title',)   
 

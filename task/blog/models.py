@@ -21,12 +21,14 @@ class Contact(models.Model):
        return self.name
 
 class Post(models.Model):
-    title = models.CharField(max_length=50,null=True)
+    title = models.CharField(max_length=100,null=True)
     username = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     body = RichTextUploadingField(blank=True,null=True)
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to = "images/",null=True,blank=True,default='images/default.png')
+    snippet = models.CharField(max_length=255,default='Click Link Above To Read Blog Post...')
     likes = models.ManyToManyField(User,related_name='blog_post')
+
 
     class Meta:
         ordering=['-date']

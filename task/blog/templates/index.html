@@ -148,15 +148,16 @@ body{
           <span class="progress-text">{{i.date}}</span>
         <h6>BY - {{i.username}} </h6>
         <h2>{{i.title}}</h2>
-        <p class="p-trunc">{{ i.body | safe}}</p>
+        {% comment %} <p class="p-trunc">{{ i.body|slice:":20" | safe}}</p> {% endcomment %}
+        <p class="p-trunc">{{ i.snippet}}</p>
         <a href = "{% url 'postdetail' i.id %}"><button class="btn">Read more</button></a>
       </div>
     </div>
   
-  <script>
+  {% comment %} <script>
     const trunc = document.querySelector('.p-trunc');
     trunc.innerText= trunc.innerText.substring(0,20)
-  </script>
+  </script> {% endcomment %}
 {%endfor%}
 
     

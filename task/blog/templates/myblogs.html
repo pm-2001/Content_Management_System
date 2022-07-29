@@ -167,6 +167,12 @@ body{
   }
 }
 </style>
+{%for msg in messages%}
+  <div class="alert">
+    <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+    {{msg}}
+  </div>
+  {%endfor%}
 {%for i in posts %}
     <div class="container">
       <div class="preview">
@@ -178,7 +184,7 @@ body{
           <span class="progress-text">{{i.date}}</span>
         <h6>BY - {{i.username}} </h6>
         <h2>{{i.title}}</h2>
-        <p class="p-trunc">{{ i.body | safe}}</p>
+        <p class="p-trunc">{{ i.snippet}}</p>
         <a href = "{% url 'update_post' i.id %}"><button class="btn1">Edit</button></a>
         <a href = "{% url 'delete_post' i.id %}"><button type="button" class="btn2" >Delete</button></a>
         {% comment %} <a><button type="button" class="btn2" data-bs-toggle="modal" data-bs-target="#mymodal">Delete</button></a> {% endcomment %}

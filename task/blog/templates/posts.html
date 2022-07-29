@@ -3,11 +3,12 @@
 {% block body %}
 <style>
   .container {
+    align-items: center;
     margin: 20px 345px;
     border-style: solid;
     border-color: blue;
     border-radius: 10px;
-    width: 135vh;
+    width: 121vh;
 
     background:linear-gradient(to left top, #c4d7e6 0, #c4d7e6 33%, #66a5ad 33%, #66a5ad 66%, #dc7bac 66%, #dc7bac 100%);
   }
@@ -136,7 +137,9 @@
       </div>
       <span><input type="file" id="myfile" name="image"></span>
     </label>
-    <br>
+    <div class="form-group">
+      <input type="snippet" class="form-control" name="snippet" id="snippet" placeholder="Add Your Post snippet ...">
+    </div>
     <div class="content">
       {{form.body}}
       <br>
