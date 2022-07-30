@@ -58,7 +58,7 @@ nav ul li a{
     padding: 4px 10px;
 }
 nav ul li a:hover{
-    background: #078a51;
+    background: #dfce52;
     color: #081210;
 }
 
@@ -71,14 +71,14 @@ nav .menu-btn i{
 .user a{
     text-decoration: none;
     color: aliceblue;
-    border-color: #078a51;
+    border-color: #dfce52;
     margin: 1px 20px;
     padding: 8px 10px;
     border-style: solid;
     border-radius: 50px;
 }
 .user a:hover{
-    background: #078a51;
+    background: #dfce52;
     color: #081210;
 }
 nav ul ul {
@@ -97,14 +97,14 @@ nav ul li ul .submenu{
     margin-top: 0px;
     margin-right: 0px;
     padding: 1px 20px;
-    background: #426d66;
+    background:linear-gradient(to bottom,#42e1cc 0,#f959e4 100%);
     border-radius: 10px;
     padding-bottom: 40px;
 
 }
 
  .submenu h4{
-    color: antiquewhite;
+    color: rgb(255, 255, 255);
     text-transform: uppercase;
 
 }
@@ -118,7 +118,8 @@ nav ul li ul li{
 }
 
 footer{
-    margin-top: 100px;
+    margin-top: 300px;
+    margin-bottom: 0px;
     position: relative;
     display: flex;
     justify-content: center;
@@ -172,7 +173,7 @@ footer .menu li a{
 }
 
 footer .social_icon li a:hover{
-    transform: translatey(-5px);
+    transform: translatey(-10px);
 }
 
 footer .menu li a:hover{

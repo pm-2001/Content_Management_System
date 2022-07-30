@@ -50,4 +50,10 @@ class Comment(models.Model):
 
     def __str__(self):
       return '%s - %s' %(self.post.title, self.name)
+
+class Profile(models.Model):
+    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    pic=models.ImageField(default='images/default.png',upload_to = "pics/")
     
+    def __str__(self):
+        return f'{self.user.username}Profile'

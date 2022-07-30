@@ -22,12 +22,15 @@
             
             <!-- <li><a href="/contact"><i class="fa-solid fa-message-quote"></i>Contact</a></li> -->
             <!-- <li><a href="/about">About</a></li> -->
+            {% if user.is_authenticated %}<li><a href="/posts">Create</a></li>{% endif %}
             {% if user.is_authenticated %}<li><div class="user"><a href="#"><i class="fa-solid fa-user"></i></a></div>
                     <ul>
                        <div class="submenu">
                         <li><h4>Hello, {{request.user}}</h4></li>
-                        {% if user.is_authenticated %}<li><a href="/myblogs">My blogs</a></li>{% endif %}
+                        <li><a href="#">Profile</a></li>
+                        <li><a href="/myblogs">My blogs</a></li>
                         <li><a href="/posts">Create</a></li>
+                        <li><a href="/edit_profile">Edit</a></li>
                         <li><a href="/logout">Logout</a></li>
                         {% else %}
                         <li><a href="/signin">Sign in</a></li>

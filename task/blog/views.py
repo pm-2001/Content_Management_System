@@ -7,13 +7,15 @@ from datetime import datetime
 from blog.models import Post,Comment,Contact
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
-from .forms import ImageForm,CommentForm,CreateUserForm
+from .forms import ImageForm,CommentForm,CreateUserForm,EditProfileForm,PasswordChangingForm
 from django.views.generic import DetailView,UpdateView,DeleteView,CreateView
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.views import generic
+from django.contrib.auth.views import PasswordChangeView
 
 
 def home(request):
@@ -69,8 +71,7 @@ class DeletePostView(DeleteView):
 
 def about(request):
     return render(request,'about.html')
-
-    # return HttpResponse("This is about page")
+    
 @login_required(login_url='signin')
 def posts(request):
     user=request.user
@@ -83,11 +84,6 @@ def posts(request):
             return redirect("myblogs")
         else:
             messages.success(request,'Invalid Post') 
-    #     title = request.POST.get('title')
-        # username = request.POST.get(request.user)
-    #     body = request.POST.get('body')
-        # posts= Post(username=request.user.username,date = datetime.today())
-        # posts.save()
     context = {'form':form}
     return render(request,'posts.html',context)
 
@@ -102,7 +98,6 @@ def contact(request):
         contact.save()
         messages.success(request,'Submitted successfully')
     return render(request,'contact.html')
-    # return HttpResponse("This is contact page")
 
 def register(request):
     form = CreateUserForm()
@@ -116,13 +111,24 @@ def register(request):
         else:
             messages.success(request,"password didn't match!")
             return render(request,'register.html')
-        # if user is not None:
-        #     login(request,user)
-        #     return redirect("/")
-        # else:
-        #     return render(request,'signin.html')
     context = {'form':form}
     return render(request,'register.html',context)
+
+class UserEditView(generic.UpdateView):
+    form_class = EditProfileForm
+    template_name='edit_profile.html'
+    success_url = reverse_lazy('home')
+
+    def get_object(self):
+        return self.request.user
+
+def password_success(request):
+    return render(request,'password_success.html')
+
+class PasswordsChangeView(PasswordChangeView):
+    form_class=PasswordChangingForm
+    success_url = reverse_lazy('password_success')
+    # success_url = reverse_lazy('home')
 
 def signin(request):
     if request.method=="POST":
@@ -139,7 +145,7 @@ def signin(request):
 
 def logoutUser(request):
     logout(request)
-    return render(request,'signin.html')
+    return redirect("/")
 
 @login_required(login_url='signin')
 def myblogs(request):

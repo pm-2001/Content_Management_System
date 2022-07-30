@@ -1,7 +1,10 @@
+from re import template
 from django.contrib import admin
 from django.urls import path
 from blog import views
-from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,AddCommentView
+from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,AddCommentView,UserEditView,PasswordsChangeView
+from django.contrib.auth import views as auth_views
+from . import views
 
 urlpatterns = [
     path('',views.home, name='home'),
@@ -10,6 +13,10 @@ urlpatterns = [
     path('contact',views.contact, name='contact'),
     path('posts/',views.posts, name='posts'),
     path('register',views.register, name='register'),
+    path('edit_profile/',UserEditView.as_view(), name='edit_profile'),
+    # path('password/', auth_views.PasswordChangeView.as_view(template_name='change_password.html')),
+    path('password/',PasswordsChangeView.as_view(template_name='change_password.html')),
+    path('password_success',views.password_success, name='password_success'),
     path('signin',views.signin, name='signin'),
     path('logout',views.logoutUser, name='logout'),
     path('article/edit/<int:pk>',views.UpdatePostView.as_view(),name='update_post'),
