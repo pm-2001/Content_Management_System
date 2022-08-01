@@ -4,7 +4,7 @@ from audioop import reverse
 from xml.etree.ElementTree import Comment
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from datetime import datetime
-from blog.models import Post,Comment,Contact
+from blog.models import Post,Comment,Contact,Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -71,6 +71,10 @@ class DeletePostView(DeleteView):
 
 def about(request):
     return render(request,'about.html')
+
+def profile(request):
+    profiles = Profile.objects.all()
+    return render(request,'profile.html',{'profiles':profiles})
     
 @login_required(login_url='signin')
 def posts(request):

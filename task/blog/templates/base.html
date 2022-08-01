@@ -27,10 +27,9 @@
                     <ul>
                        <div class="submenu">
                         <li><h4>Hello, {{request.user}}</h4></li>
-                        <li><a href="#">Profile</a></li>
+                        <li><a href="/profile">Profile</a></li>
                         <li><a href="/myblogs">My blogs</a></li>
                         <li><a href="/posts">Create</a></li>
-                        <li><a href="/edit_profile">Edit</a></li>
                         <li><a href="/logout">Logout</a></li>
                         {% else %}
                         <li><a href="/signin">Sign in</a></li>

@@ -6,7 +6,21 @@
 
     <form action="" method="POST">
         {% csrf_token %}
-        {{form.as_p }}
+        <img class ="card-img-top" src="{{ser.pic.url}}">
+        {{user.profile.bio}}<br>
+        {{user.profile.website_url}}<br>
+        {{user.profile.fb_url}}<br>
+        {{user.profile.instagram_url}}<br>
+        {{form.username.label}}
+        {{form.username}}<br>
+        {{form.first_name.label}}
+        {{form.first_name}}<br>
+        {{form.last_name.label}}
+        {{form.last_name}}<br>
+        {{form.email.label}}
+        {{form.email}}<br>
+        {{form.is_superuser.label}}
+        {{form.is_superuser}}<br>
         <button>Update</button>
     </form>
 {% endblock body %}

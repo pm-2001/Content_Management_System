@@ -52,8 +52,14 @@ class Comment(models.Model):
       return '%s - %s' %(self.post.title, self.name)
 
 class Profile(models.Model):
-    user=models.OneToOneField(User,on_delete=models.CASCADE)
+    user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
     pic=models.ImageField(default='images/default.png',upload_to = "pics/")
+    bio=models.TextField(null=True)
+    website_url=models.CharField(max_length=255,null=True,blank=True)
+    fb_url=models.CharField(max_length=255,null=True,blank=True)
+    twitter_url=models.CharField(max_length=255,null=True,blank=True)
+    instagram_url=models.CharField(max_length=255,null=True,blank=True)
+    linkedin_url=models.CharField(max_length=255,null=True,blank=True)
     
     def __str__(self):
-        return f'{self.user.username}Profile'
+       return str(self.user)

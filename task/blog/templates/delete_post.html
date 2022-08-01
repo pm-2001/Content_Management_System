@@ -1,35 +1,80 @@
 {%extends 'base.html'%}
 {%block title%}Delete post{%endblock title%}
 {% block body %}
-
-<div style="margin-left:1%">
-    <table>
-    <h1>{{post.title}}</h1>
-    <small>By {{post.username}} </small>
-        <hr>
-        <br>
-        {% if i.image %}
-        <img height="400px" alt="" src="{{post.image.url}}"> 
-        {%endif%}
-        <br>
-        <br>
-        {{post.body | safe}}
-    </table>
-</div>
-<div style="margin-left:40%">         
-<strong>Are you sure want to delete post!</strong>
-</div>
-<br>
-<br>
-<div style="margin-left:40%">  
-<form method="POST" action=" " >
-    {% csrf_token %}
+<style>
+    .main {
+        margin-top: 10%;
+        margin-left: 22%;
+        font-size: 28px;
+        padding: 0 10px;
+        width: 58%;
+    }
     
-    <br>
-    <br>
-    <button type="delete" class="btn btn-danger">Delete</button>       
-</form>
+    
+    .main .card {
+        background-color: #fff;
+        border-radius: 18px;
+        box-shadow: 1px 1px 8px 0 grey;
+        height: 50vh;
+        margin-bottom: 20px;
+        padding: 20px 0 20px 0px;
+        align-items: center;
+    }
 
-<a href="{% url 'home' %}"><button class="btn btn-outline-info" type="Back">Back</button></a>                 
-</div>  
+    .card h3{
+        padding-top: 80px;
+        text-align: center;
+    }
+
+    .button {
+        background-color: #e50805; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 27px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    .button2 {
+        background-color: #888f88; /* Green */
+        border: none;
+        color: white;
+        padding: 10px 27px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        border-radius: 8px;
+    }
+    
+    .button2:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+    .card form{
+        padding-left: 37%;
+        padding-top: 30px;
+    }
+
+</style>
+<div class="main">
+    <div class="card">
+
+            <h3>Are you sure want to Delete ? </h3>
+            <form method="POST" action=" " >
+                {% csrf_token %}
+                <a href="{% url 'myblogs' %}"><div class="button2">Cancel</div></a>     
+                <button class="button">Delete</button>
+            </form>
+
+
+    </div>
+</div> 
 {% endblock body %}
