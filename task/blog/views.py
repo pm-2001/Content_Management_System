@@ -42,16 +42,46 @@ class PostDetail(DetailView):
 
     def get_context_data(self,*args,**kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
-        stuff=get_object_or_404(Post, id=self.kwargs['pk'])
+        pk = self.kwargs["pk"]
+        stuff=get_object_or_404(Post, id=pk)
         total_likes = stuff.total_likes()
         liked = False
-
         if stuff.likes.filter(id = self.request.user.id).exists():
             liked=True
 
+        form = CommentForm()
+        post = get_object_or_404(Post, pk=pk)
+        comments = post.comments.all()
+
+        context['post'] = post
+        context['comments'] = comments
+        context['form'] = form
         context["total_likes"] = total_likes
         context[" liked "] = liked
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        self.object = self.get_object()
+        context = super(PostDetail, self).get_context_data(**kwargs)
+
+        post = Post.objects.filter(id=self.kwargs['pk'])[0]
+        comments = post.comments.all()
+
+        context['post'] = post
+        context['comments'] = comments
+        context['form'] = form
+
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            body = form.cleaned_data['body']
+
+            comment = Comment.objects.create(name=name, body=body, post=post)
+
+            form = CommentForm()
+            context['form'] = form
+            return self.render_to_response(context=context)
+
 
 class UpdatePostView(UpdateView):
     model= Post
@@ -72,7 +102,7 @@ class DeletePostView(DeleteView):
 def about(request):
     return render(request,'about.html')
 
-def profile(request):
+def profile(request,pk):
     profiles = Profile.objects.all()
     return render(request,'profile.html',{'profiles':profiles})
     
@@ -159,12 +189,12 @@ def myblogs(request):
     return render(request,'myblogs.html',{'posts':posts})
 
 
-class AddCommentView(CreateView):
-    model = Comment
-    form_class = CommentForm
-    template_name= 'addcomment.html'
-    # fields= '__all__'
-    def form_valid(self,form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
-    success_url= reverse_lazy('home') 
+# class AddCommentView(CreateView):
+#     model = Comment
+#     form_class = CommentForm
+#     template_name= 'postdetail.html'
+#     # fields= '__all__'
+#     def form_valid(self,form):
+#         form.instance.post_id = self.kwargs['pk']
+#         return super().form_valid(form)
+#     success_url= reverse_lazy('home') 

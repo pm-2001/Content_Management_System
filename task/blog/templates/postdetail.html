@@ -3,10 +3,31 @@
 {% block body %}
 
     <style>
-        .column {
+
+        .column1 {
           float: left;
-          width: 50%;
-          padding: 10px;
+          width: 70%;
+          padding: 30px;
+        }
+        .column3 {
+          float: left;
+          width: 70%;
+          padding: 30px;
+          margin-bottom: 20vh;
+        }
+        .column2 {
+          float: left;
+          width: 30%;
+          padding: 60px 80px;
+          padding-left: 50px;
+          
+        }
+        .column4 {
+          float: left;
+          width: 30%;
+          padding: 60px 80px;
+          padding-left: 50px;
+          
         }
         
         .card-container {
@@ -18,7 +39,7 @@
           width: 350px;
           max-width: 100%;
           text-align: center;
-          margin-right: 10px;
+          
         }
         
         .card-container .round {
@@ -64,28 +85,137 @@
           padding: 7px;
         }
 
+        h3{
+          text-transform: capitalize;
+        }
+
+        .recent{
+          border-style: solid;
+          border-color: #028a9cbd;
+          background: #51cedfd2;
+          border-radius: 5px;
+          height: 50vh;
+          text-align: left;
+          padding: 2vh 2vh;
+        }
+       .recent a{
+          text-decoration: none;
+        }
+
+        .usercomment{
+          background: #dcdadaee;
+          border-style: dotted;
+          border-width: 1px;
+          border-radius: 5px;
+          padding: 20px;
+        }
+
+        .usercomment .usericon {
+          border: 1px solid #03BFCB;
+          border-radius: 50%;
+          padding: 0px;
+          position: absolute;
+          display: flex;
+        }
+
+        .usercomment strong{
+          margin-left: 60px;
+          display: block;
+        }
+
+        .usercomment small{
+          margin-left: 60px;
+          display: block;
+        }
+
+        .userbody{
+          margin-left: 60px;
+          display: block;
+        }
+
+        .addcomment{
+          background: #dcffe2;
+          border: #02899C dashed ;
+          border-width: .5px;
+          border-radius: 5px;
+          padding: 20px;
+          width: 50%;
+        }
+
+        .form-group {
+          margin-bottom: 20px;
+        }
+
+        .form-control {
+          width: 100%;
+          padding: 10px 20px;
+          margin: 4px 0;
+          box-sizing: border-box;
+          display: flex;
+        }
+
+        textarea {
+        width: 250px;
+        height: 100px;
+      }
+
+      .button {
+            background-color: #1259d3; /* Green */
+            border: none;
+            color: white;
+            padding: 10px 27px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 8px;
+      }
+        
+      .button:hover {
+            box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+      }
+
+      .like{
+        background: #4c8dff;
+        height: 5vh;
+        width: 5vh;
+        border-radius: 8px;
+      }
+
+      .unlike{
+        background: #4c8dff;
+        height: 5vh;
+        width: 5vh;
+        border-radius: 8px;
+      }
+
+
+
     </style>
 
 
 <div class="row">
-  <div class="column" >
+  <div class="column1" >
     <div class="post">
       <h1>{{post.title}}</h1>
       <small>By {{post.username}} </small>
       <hr>
       <br>
-      <img height="40px" src="{{post.image.url}}">
+      <img height="300px" src="{{post.image.url}}">
       <br>
       <br>
       {{post.body | safe}}
     </div>
   </div>
-  <div class="column">
+  <div class="column2">
     <div class="card-container">
-      <img class="round" src="{{post.username.profile.pic.url}}" height="150px" width ="170px" alt="user" />
-      <h3>Ricky Park</h3>
-      <h6>New York</h6>
+      <img class="round" src="{{post.username.profile.pic.url}}" height="170px" width ="170px" alt="user" />
+      <br><br>
+      <h3>{{post.username.first_name}} {{post.username.last_name}}</h3>
+      <!-- <h6>New York</h6> -->
+      <br>
       <p>User interface designer and <br/> front-end developer</p>
+      <br>
       <div class="buttons">
         <button class="primary">
           Message
@@ -111,48 +241,74 @@
 </div>
 
 <div class="row">
-  <div class="column">
+  <div class="column3">
     <form action="{% url 'like_post' post.pk %}" method="POST">
       {% csrf_token %}
       {% if user.is_authenticated %}
         {% if liked %}
-          <button type="submit", name="post_id" , value="{{post.id}}" , class="btn btn-primary btn-sm">Unlike</button>
+          <button type="submit", name="post_id" , value="{{post.id}}" , class="unlike"><i class="fa-solid fa-thumbs-down"></i></button>
         {% else %}
-          <button type="submit", name="post_id" , value="{{post.id}}" , class="btn btn-danger btn-sm">like</button> 
+          <button type="submit", name="post_id" , value="{{post.id}}" , class="like"><i class="fas fa-thumbs-up fa-2x"></i></button> 
         {% endif %}
         {{ total_likes }} likes
       {% else %}
         <a href="#">login</a>
       {% endif %}
     </form>
-      <br><hr><br>
+    <br><hr><br>
+
+    
       <div class="comment">
-          <h2>Comments .....</h2><br>
+          <h2>Comments ({{comments.count}}) .....</h2><br> 
             {% if user.is_authenticated %}
               {% if not post.comments.all %}
                 No Comments Yet ...
-                <a href="{% url 'addcomment' post.pk %}">Add one</a>
-              {% else %}
-                <a href="{% url 'addcomment' post.pk %}">Add comment</a>
               {% endif %}
             {% else %}
-              <a href="{% url 'signin' %}">Sign in</a>
+              <a href="{% url 'signin' %}">Sign in to Add comment</a>
             {% endif %}
-            <br><br>
-            {% for comment in post.comments.all %}
+          {% for comment in post.comments.all %}
+          <div class="usercomment">
+            <img class="usericon" height="50px" width ="50px" src="{{post.username.profile.pic.url}}" alt="Avatar">
               <strong>
                 {{comment.name}}
-                {{comment.date_added}}
               </strong>
+              <small>{{comment.date_added}}</small>
               <br>
+              <div class="userbody">
                 {{comment.body}}
-              <br><br><br>
-            {% endfor %}
-      </div>  
+              </div>
+          </div>
+            <br>
+          {% endfor %}
+      </div> 
+    <!-- Form to leave comment -->
+    {% if user.is_authenticated %}
+        <div class="addcomment">
+          <h1>Add comment ...</h1>
+              <br>
+              <div class="form-group" >
+                  <form method ="POST" >
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name">
+                      </div>
+                      <div class="form-group">
+                        <textarea type="text" class="form-control" name="body" id="body" placeholder="add your comment"></textarea>
+                      </div>
+                      <div class="form-group">
+                        <button class="button">Submit</button>
+                    </div>
+                  </form>
+              </div>
+        </div>
+    {% endif %}
   </div>
-  <div class="column" style="background-color:#ddd;">
-    <h2>Column 4</h2>
-    <p>Some text..</p>
+
+  <div class="column4" >
+    <div class="recent">
+      <a href="#"><h3>Recent post..</h3></a>
+    </div>
   </div>
 </div>
 {% endblock body %}

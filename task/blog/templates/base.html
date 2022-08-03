@@ -27,7 +27,7 @@
                     <ul>
                        <div class="submenu">
                         <li><h4>Hello, {{request.user}}</h4></li>
-                        <li><a href="/profile">Profile</a></li>
+                        <li><a href="{% url 'profile' user.id %}">Profile</a></li>
                         <li><a href="/myblogs">My blogs</a></li>
                         <li><a href="/posts">Create</a></li>
                         <li><a href="/logout">Logout</a></li>

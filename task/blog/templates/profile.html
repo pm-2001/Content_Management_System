@@ -251,7 +251,7 @@
 
         <div class="sidenav-url">
             <div class="url">
-                <a href="#profile" class="active">Profile</a>
+                <a href="{% url 'profile' user.id %}" class="active">Profile</a>
                 <hr align="center">
             </div>
             <div class="url">
@@ -273,7 +273,7 @@
                         <tr>
                             <td>Name</td>
                             <td>:</td>
-                            <td>ImDezCode</td>
+                            <td>ImDezCode{{profiles.user}}</td>
                         </tr>
                         <tr>
                             <td>Email</td>

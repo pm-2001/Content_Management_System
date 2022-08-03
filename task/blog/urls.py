@@ -2,7 +2,7 @@ from re import template
 from django.contrib import admin
 from django.urls import path
 from blog import views
-from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,AddCommentView,UserEditView,PasswordsChangeView
+from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,UserEditView,PasswordsChangeView
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -11,7 +11,7 @@ urlpatterns = [
     path('article/<int:pk>',PostDetail.as_view(),name='postdetail'),
     path('about',views.about, name='about'),
     path('contact',views.contact, name='contact'),
-    path('profile',views.profile, name='profile'),
+    path('profile/<int:pk>',views.profile, name='profile'),
     path('posts/',views.posts, name='posts'),
     path('register',views.register, name='register'),
     path('edit_profile/',UserEditView.as_view(), name='edit_profile'),
@@ -24,6 +24,6 @@ urlpatterns = [
     path('article/delete/<int:pk>',views.DeletePostView.as_view(),name='delete_post'),
     path('myblogs',views.myblogs, name='myblogs'),
     path('like/<int:pk>',LikeView , name='like_post'),
-    path('article/<int:pk>/comment/', AddCommentView.as_view(), name='addcomment'),
+    # path('article/<int:pk>/comment/', AddCommentView.as_view(), name='addcomment'),
     # path('delete/<post_id>',views.delete_post,name='delete'),
 ]
