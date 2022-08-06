@@ -1,4 +1,6 @@
+
 *{
+    
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -17,7 +19,7 @@ body{
 }
 
 nav{
-   
+    font-family: "Audiowide", sans-serif;
     height: 60px;
     background:linear-gradient(to right,#2989d8 0,#b524b5 52%,#f4af84 100%);
     display: flex;
@@ -27,11 +29,12 @@ nav{
 }
 
 nav .logo a{
-    font-size: 33px;
-    color: #9b5db6;
-    font-weight: 600;
+    font-family: "Mr Dafoe", sans-serif;
+    font-size: 45px;
+    color: #ffffff;
+    /* font-weight: 600; */
     text-decoration: none;
-    background: linear-gradient(to right,#2989d8 0,#ffffff 52%,#2a8bdb50 100%);
+    /* background: linear-gradient(to right,#2989d8 0,#ffffff 52%,#2a8bdb50 100%); */
     border-radius: 5px;
     padding: 1px 10px 1px 10px;
 

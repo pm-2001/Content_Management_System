@@ -48,31 +48,34 @@
           padding: 7px;
         }
         
-        button.primary {
+        .primary a{
+          background-color: #231E39;
+          border: 1px solid #03BFCB;
+          border-radius: 3px;
+          color: #03BFCB;
+          font-weight: 500;
+          padding: 10px 100px;
+          text-decoration: none;
+        }
+        .primary a:hover{
           background-color: #03BFCB;
           border: 1px solid #03BFCB;
           border-radius: 3px;
           color: #231E39;
-          font-family: Montserrat, sans-serif;
           font-weight: 500;
-          padding: 10px 25px;
-        }
-        
-        button.primary.ghost {
-          background-color: transparent;
-          color: #02899C;
+          padding: 10px 100px;
+          text-decoration: none;
         }
         
         .skills {
           background-color: #1F1A36;
-          text-align: left;
           padding: 15px;
           margin-top: 30px;
         }
         
         .skills ul {
           list-style-type: none;
-          margin: 0;
+          margin-top: 1px;
           padding: 0;
         }
         
@@ -80,9 +83,19 @@
           border: 1px solid #2D2747;
           border-radius: 2px;
           display: inline-block;
-          font-size: 12px;
-          margin: 0 7px 7px 0;
-          padding: 7px;
+          font-size: 30px;
+          margin: 0 5px 0px 5px;
+          padding: 8px 8px 0px 8px;
+        }
+
+        .social_icon{
+          position: relative;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          /* margin: 2px 0 0 0; */
+          padding: 0px;
+          flex-wrap: wrap;
         }
 
         h3{
@@ -115,7 +128,7 @@
           border-radius: 50%;
           padding: 0px;
           position: absolute;
-          display: flex;
+          display: flex;  
         }
 
         .usercomment strong{
@@ -139,7 +152,7 @@
           border-width: .5px;
           border-radius: 5px;
           padding: 20px;
-          width: 50%;
+          width: 95%;
         }
 
         .form-group {
@@ -147,7 +160,7 @@
         }
 
         .form-control {
-          width: 100%;
+          width: 60%;
           padding: 10px 20px;
           margin: 4px 0;
           box-sizing: border-box;
@@ -212,29 +225,18 @@
       <img class="round" src="{{post.username.profile.pic.url}}" height="170px" width ="170px" alt="user" />
       <br><br>
       <h3>{{post.username.first_name}} {{post.username.last_name}}</h3>
-      <!-- <h6>New York</h6> -->
       <br>
-      <p>User interface designer and <br/> front-end developer</p>
-      <br>
-      <div class="buttons">
-        <button class="primary">
-          Message
-        </button>
-        <button class="primary ghost">
-          Following
-        </button>
-      </div>
+      <p>{{post.username.profile.bio}}</p>
+      <br><br>
+      <div class="primary"><a href = "#"">View Profile</a></div>
       <div class="skills">
-        <h6>Skills</h6>
-        <ul>
-          <li>UI / UX</li>
-          <li>Front End Development</li>
-          <li>HTML</li>
-          <li>CSS</li>
-          <li>JavaScript</li>
-          <li>React</li>
-          <li>Node</li>
-        </ul>
+        <ul class="social_icon">
+          <li><a href="{{post.username.profile.fb_url}}"><ion-icon name="logo-facebook"></ion-icon></a></li>
+          <li><a href="{{post.username.profile.website_url}}"><ion-icon name="link"></ion-icon></a></li>
+          <li><a href="{{post.username.profile.linkedin_url}}"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+          <li><a href="{{post.username.profile.instagram_url}}"><ion-icon name="logo-instagram"></ion-icon></a></li>
+          <li><a href="{{post.username.profile.twitter_url}}"><ion-icon name="logo-twitter"></ion-icon></a></li>
+      </ul>
       </div>
     </div>
   </div>
@@ -252,7 +254,8 @@
         {% endif %}
         {{ total_likes }} likes
       {% else %}
-        <a href="#">login</a>
+      <button class="like"><i class="fas fa-thumbs-up fa-2x"></i></button>
+        <a href="{% url 'signin' %}">Sign in</a>
       {% endif %}
     </form>
     <br><hr><br>
@@ -267,20 +270,7 @@
             {% else %}
               <a href="{% url 'signin' %}">Sign in to Add comment</a>
             {% endif %}
-          {% for comment in post.comments.all %}
-          <div class="usercomment">
-            <img class="usericon" height="50px" width ="50px" src="{{post.username.profile.pic.url}}" alt="Avatar">
-              <strong>
-                {{comment.name}}
-              </strong>
-              <small>{{comment.date_added}}</small>
-              <br>
-              <div class="userbody">
-                {{comment.body}}
-              </div>
-          </div>
-            <br>
-          {% endfor %}
+          <br><br>
       </div> 
     <!-- Form to leave comment -->
     {% if user.is_authenticated %}
@@ -301,8 +291,22 @@
                     </div>
                   </form>
               </div>
+              {% endif %}
+              {% for comment in post.comments.all %}
+                    <div class="usercomment">
+                      <img class="usericon" height="50px" width ="50px" src="{{post.username.profile.pic.url}}" alt="Avatar">
+                        <strong>
+                          {{comment.name}}
+                        </strong>
+                        <small>{{comment.date_added}}</small>
+                        <br>
+                        <div class="userbody">
+                          {{comment.body}}
+                        </div>
+                    </div>
+                      <br>
+              {% endfor %}
         </div>
-    {% endif %}
   </div>
 
   <div class="column4" >

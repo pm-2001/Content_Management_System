@@ -3,6 +3,7 @@
 {% block body %}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <style>
 
     /* Import Font Dancing Script */
@@ -43,21 +44,12 @@
         text-decoration: none;
     }
     
-    .icon-count {
-        background-color: #ff0000;
-        color: #fff;
-        float: right;
-        font-size: 11px;
-        left: -25px;
-        padding: 2px;
-        position: relative;
-    }
     
     /* End */
     
     /* Sidenav */
     .sidenav {
-        background-color: rgb(255, 255, 255);
+        background: white;
         color: #333;
         box-shadow: 0px 4px 8px 0px grey;
         border-bottom-right-radius: 25px;
@@ -67,7 +59,7 @@
         padding-top: 40px;
         position: absolute;
         top: 130px;
-        width: 250px;
+        width: 300px;
     }
     
     .profile {
@@ -143,8 +135,9 @@
         box-shadow: 1px 1px 8px 0 grey;
         height: auto;
         margin-bottom: 20px;
-        padding: 20px 0 20px 50px;
+        padding: 20px 0 20px 0px;
     }
+
     
     .main .card table {
         border: none;
@@ -169,7 +162,7 @@
     }
     
     .fa-facebook:hover {
-        color: #4267b3 !important;
+        color: #5c92ff !important;
     }
     
     .fa-twitter:hover {
@@ -183,28 +176,47 @@
     .fa-invision:hover {
         color: #1870e2 !important;
     }
-    
-    .fa-github:hover {
-        color: #a7d814 !important;
+    .fa-link:hover {
+        color: #c2d574 !important;
     }
-    
-    .fa-whatsapp:hover {
-        color: #25d366 !important;
+
+    .edit{
+      
+        position: absolute;
+        margin-right: -7vh;
     }
-    
-    .fa-snapchat:hover {
-        color: #fffb01 !important;
+
+     /* The alert message box */
+    .alert {
+    padding: 10px 10px 10px 10px;
+    background-color: #dddddd; /* Red */
+    color: rgb(0, 0, 0);
+    margin: auto;
+    width: max-content;
+    height: 10%;
+    align-items: center;
+    justify-content: center;
     }
-    
-    /* End */
+
+    /* The close button */
+    .closebtn {
+    margin-left: 15px;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+    }
 
 </style>
-
-
-
-
-</head>
-<body>
+{%for msg in messages%}
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  {{msg}}
+</div>
+{%endfor%}
     <!-- Navbar top -->
     <div class="navbar-top">
         <div class="title">
@@ -213,18 +225,18 @@
 
         <!-- Navbar -->
         <ul>
-            <li>
+            <!-- <li>
                 <a href="#message">
                     <span class="icon-count">29</span>
                     <i class="fa fa-envelope fa-2x"></i>
                 </a>
-            </li>
-            <li>
+            </li> -->
+            <!-- <li>
                 <a href="#notification">
                     <span class="icon-count">59</span>
                     <i class="fa fa-bell fa-2x"></i>
                 </a>
-            </li>
+            </li> -->
             <li>
                 <a href="/myblogs">
                     <i class="fa fa-sign-out-alt fa-2x"></i>
@@ -236,13 +248,12 @@
     <!-- End -->
 
     <!-- Sidenav -->
+
     <div class="sidenav">
         <div class="profile">
-            <img src="https://imdezcode.files.wordpress.com/2020/02/imdezcode-logo.png" alt="" width="100" height="100">
-            <img src="{{post.username.profiles.pic.url}}">
-            <img src="{{profiles.pic.url}}">
+            <img src="{{user.profile.pic.url}}" alt="" width="100" height="100">
             <div class="name">
-                ImDezCode
+                {{user.username}}
             </div>
             <div class="job">
                 Web Developer
@@ -251,7 +262,8 @@
 
         <div class="sidenav-url">
             <div class="url">
-                <a href="{% url 'profile' user.id %}" class="active">Profile</a>
+                <a href="#" class="active">Profile</a>
+                {% comment %} <a href="{% url 'profile' user.id %}" class="active">Profile</a> {% endcomment %}
                 <hr align="center">
             </div>
             <div class="url">
@@ -266,31 +278,38 @@
     <div class="main">
         <h2>IDENTITY</h2>
         <div class="card">
-            <div class="card-body">
-                <a href="/edit_profile"><i class="fa fa-pen fa-xs edit"></i></a>
+            <!-- <div class="card-body"> -->
+                <!-- <div class="text-right"> -->
+                    <div class="edit" data-toggle="modal" data-target="#profileModal"><i class="fa fa-pen fa-xs edit"></i></div>
+                <!-- </div> -->
                 <table>
                     <tbody>
                         <tr>
-                            <td>Name</td>
+                            <td>User name</td>
                             <td>:</td>
-                            <td>ImDezCode{{profiles.user}}</td>
+                            <td>{{user.username}}</td>
+                        </tr>
+                        <tr>
+                            <td> Full Name</td>
+                            <td>:</td>
+                            <td>{{user.first_name}} {{user.last_name}}</td>
                         </tr>
                         <tr>
                             <td>Email</td>
                             <td>:</td>
-                            <td>imdezcode@gmail.com</td>
+                            <td>{{user.email}}</td>
                         </tr>
                         <tr>
-                            <td>Address</td>
+                            <td>Date joined</td>
                             <td>:</td>
-                            <td>Bali, Indonesia</td>
+                            <td>{{user.date_joined}}</td>
                         </tr>
                         <tr>
-                            <td>Hobbies</td>
+                            <td>Description</td>
                             <td>:</td>
-                            <td>Diving, Reading Book</td>
+                            <td>{{user.profile.bio}}</td>
                         </tr>
-                        <tr>
+                        {% comment %} <tr>
                             <td>Job</td>
                             <td>:</td>
                             <td>Web Developer</td>
@@ -299,48 +318,70 @@
                             <td>Skill</td>
                             <td>:</td>
                             <td>PHP, HTML, CSS, Java</td>
-                        </tr>
+                        </tr> {% endcomment %}
                     </tbody>
                 </table>
-            </div>
+            <!-- </div> -->
         </div>
 
         <h2>SOCIAL MEDIA</h2>
         <div class="card">
-            <div class="card-body">
-                <a href="/edit_profile"><i class="fa fa-pen fa-xs edit"></i></a>
+            <!-- <div class="card-body"> -->
+                <div class="edit" data-toggle="modal" data-target="#profileModal"><i class="fa fa-pen fa-xs edit"></i></div>
+                <!-- <a href="/edit_profile"><i class="fa fa-pen fa-xs edit"></i></a> -->
                 <div class="social-media">
                     <span class="fa-stack fa-sm">
                         <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+                        <a href="{{user.profile.fb_url}}"> <i class="fab fa-facebook fa-stack-1x fa-inverse"></i></a>
                     </span>
                     <span class="fa-stack fa-sm">
                         <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                        <a href="{{user.profile.twitter_url}}"><i class="fab fa-twitter fa-stack-1x fa-inverse"></i></a>
                     </span>
                     <span class="fa-stack fa-sm">
                         <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-instagram fa-stack-1x fa-inverse"></i>
+                        <a href="{{user.profile.instagram_url}}"><i class="fab fa-instagram fa-stack-1x fa-inverse"></i></a>
                     </span>
                     <span class="fa-stack fa-sm">
                         <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-invision fa-stack-1x fa-inverse"></i>
+                        <a href="{{user.profile.linkedin_url}}"><i class="fab fa-invision fa-stack-1x fa-inverse"></i></a>
+                        <!-- <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i> -->
                     </span>
                     <span class="fa-stack fa-sm">
                         <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-whatsapp fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <span class="fa-stack fa-sm">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fab fa-snapchat fa-stack-1x fa-inverse"></i>
+                        <!-- <i class="fab fa-github fa-stack-1x fa-    inverse"></i> -->
+                        <a href="{{user.profile.website_url}}"><i class="fa fa-link fa-stack-1x fa-inverse"></i></a>
                     </span>
                 </div>
-            </div>
+            <!-- </div> -->
         </div>
     </div>
 
+    	<!--Edit user modal-->
+	<div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Profile</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ user_form }}
+                        {{profile_form}}
+              </div>
+                <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary">Save changes</button>
+                  </form> 
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+        </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock body %}

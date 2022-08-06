@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.decorators import login_required
-from .forms import ImageForm,CommentForm,CreateUserForm,EditProfileForm,PasswordChangingForm
+from .forms import ImageForm,CommentForm,CreateUserForm,EditProfileForm,PasswordChangingForm,ProfileForm
 from django.views.generic import DetailView,UpdateView,DeleteView,CreateView
 from django.urls import reverse_lazy,reverse
 from django.http import HttpResponseRedirect
@@ -102,9 +102,22 @@ class DeletePostView(DeleteView):
 def about(request):
     return render(request,'about.html')
 
-def profile(request,pk):
-    profiles = Profile.objects.all()
-    return render(request,'profile.html',{'profiles':profiles})
+def profile(request):
+    if request.method == "POST":
+        user_form = EditProfileForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid():
+            user_form.save()
+            messages.success(request,('Your profile was successfully updated!'))
+        elif profile_form.is_valid():
+            profile_form.save()
+            messages.success(request,('Your wishlist was successfully updated!'))
+        else:
+            messages.error(request,('Unable to complete request'))
+            return redirect ("main:userpage")
+    user_form = EditProfileForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    return render(request=request, template_name="profile.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
     
 @login_required(login_url='signin')
 def posts(request):
@@ -157,12 +170,16 @@ class UserEditView(generic.UpdateView):
         return self.request.user
 
 def password_success(request):
-    return render(request,'password_success.html')
+    profiles = Profile.objects.all()
+    return render(request,'password_success.html',{'profiles':profiles})
 
 class PasswordsChangeView(PasswordChangeView):
     form_class=PasswordChangingForm
     success_url = reverse_lazy('password_success')
-    # success_url = reverse_lazy('home')
+
+    def get(self, request):
+        profiles = Profile.objects.all()
+        return render(request,'change_password.html',{'profiles':profiles})
 
 def signin(request):
     if request.method=="POST":
@@ -184,7 +201,6 @@ def logoutUser(request):
 @login_required(login_url='signin')
 def myblogs(request):
     user=request.user
-
     posts = user.post_set.filter(username=user)
     return render(request,'myblogs.html',{'posts':posts})
 
