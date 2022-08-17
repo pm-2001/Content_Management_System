@@ -37,6 +37,7 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model=Profile
         fields = ('pic','bio','website_url','fb_url','twitter_url','instagram_url','linkedin_url')
+        template_name='edit_profile.html'
 
 class PasswordChangingForm(PasswordChangeForm):
     old_password = forms.CharField(max_length=100, widget=forms.PasswordInput(attrs={'class':'form-control', 'type':'password'}))
@@ -51,7 +52,7 @@ class PasswordChangingForm(PasswordChangeForm):
 class ImageForm(forms.ModelForm):
     class Meta:
         model=Post
-        fields =['title','username','body','image','snippet']
+        fields =['title','username','body','image','snippet','category']
         template_name='post.html'   
         # fields = ('title',)   
 

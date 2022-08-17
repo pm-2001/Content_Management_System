@@ -103,21 +103,28 @@ def about(request):
     return render(request,'about.html')
 
 def profile(request):
+    user_form = EditProfileForm(instance=request.user)
+    profile_form = ProfileForm(instance=request.user.profile)
+    return render(request=request, template_name="profile.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
+
+def editprofile(request):
     if request.method == "POST":
         user_form = EditProfileForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid():
             user_form.save()
             messages.success(request,('Your profile was successfully updated!'))
+            return redirect ('profile')
         elif profile_form.is_valid():
             profile_form.save()
-            messages.success(request,('Your wishlist was successfully updated!'))
+            messages.success(request,('Your profile was successfully updated!'))
+            return redirect ('profile')
         else:
             messages.error(request,('Unable to complete request'))
-            return redirect ("main:userpage")
+            return render (request,'edit_profile.html')
     user_form = EditProfileForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request=request, template_name="profile.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
+    return render(request=request, template_name="edit_profile.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
     
 @login_required(login_url='signin')
 def posts(request):
@@ -160,14 +167,6 @@ def register(request):
             return render(request,'register.html')
     context = {'form':form}
     return render(request,'register.html',context)
-
-class UserEditView(generic.UpdateView):
-    form_class = EditProfileForm
-    template_name='edit_profile.html'
-    success_url = reverse_lazy('home')
-
-    def get_object(self):
-        return self.request.user
 
 def password_success(request):
     profiles = Profile.objects.all()

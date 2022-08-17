@@ -2,8 +2,8 @@
 {% block title %}Profile {% endblock title %}
 {% block body %}
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+{% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"> {% endcomment %}
+{% comment %} <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> {% endcomment %}
 <style>
 
     /* Import Font Dancing Script */
@@ -44,72 +44,81 @@
         text-decoration: none;
     }
     
+    .icon-count {
+        background-color: #ff0000;
+        color: #fff;
+        float: right;
+        font-size: 11px;
+        left: -25px;
+        padding: 2px;
+        position: relative;
+    }
     
     /* End */
     
     /* Sidenav */
-    .sidenav {
-        background: white;
-        color: #333;
-        box-shadow: 0px 4px 8px 0px grey;
-        border-bottom-right-radius: 25px;
-        height: 76%;
-        left: 0;
-        overflow-x: hidden;
-        padding-top: 40px;
-        position: absolute;
-        top: 130px;
-        width: 300px;
-    }
-    
-    .profile {
-        margin-bottom: 20px;
-        margin-top: -12px;
-        text-align: center;
-    }
-    
-    .profile img {
-        border-radius: 50%;
-        box-shadow: 0px 0px 5px 1px grey;
-    }
-    
-    .name {
-        font-size: 20px;
-        font-weight: bold;
-        padding-top: 20px;
-    }
-    
-    .job {
-        font-size: 16px;
-        font-weight: bold;
-        padding-top: 10px;
-    }
-    
-    .url, hr {
-        text-align: center;
-    }
-    
-    .url hr {
-        margin-left: 20%;
-        width: 60%;
-    }
-    
-    .url a {
-        color: #818181;
-        display: block;
-        font-size: 20px;
-        margin: 10px 0;
-        padding: 6px 8px;
-        text-decoration: none;
-    }
-    
-    .url a:hover, .url .active {
-        background-color: #e8f5ff;
-        border-radius: 28px;
-        color: #000;
-        margin-left: 14%;
-        width: 65%;
-    }
+        .sidenav {
+            background: white;
+            color: #333;
+            box-shadow: 0px 4px 8px 0px grey;
+            border-bottom-right-radius: 25px;
+            height: 76%;
+            left: 0;
+            overflow-x: hidden;
+            padding-top: 40px;
+            position: absolute;
+            top: 130px;
+            width: 300px;
+        }
+        
+        .profile {
+            margin-bottom: 20px;
+            margin-top: -12px;
+            text-align: center;
+        }
+        
+        .profile img {
+            border-radius: 50%;
+            box-shadow: 0px 0px 5px 1px grey;
+        }
+        
+        .name {
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 20px;
+        }
+        
+        .job {
+            font-size: 16px;
+            font-weight: bold;
+            padding-top: 10px;
+        }
+        
+        .url, hr {
+            text-align: center;
+        }
+        
+        .url hr {
+            margin-left: 34px;
+            width: 70%;
+        }
+        
+        .url a {
+            color: #818181;
+            display: block;
+            font-size: 20px;
+            margin: 10px 0;
+            padding: 6px 8px;
+            text-decoration: none;
+        }
+        
+        .url a:hover, .url .active {
+            background-color: #e8f5ff;
+            border-radius: 28px;
+            color: #000;
+            margin-left: 14%;
+            width: 65%;
+        }
     
     /* End */
     
@@ -135,9 +144,8 @@
         box-shadow: 1px 1px 8px 0 grey;
         height: auto;
         margin-bottom: 20px;
-        padding: 20px 0 20px 0px;
+        padding: 20px 0 20px 50px;
     }
-
     
     .main .card table {
         border: none;
@@ -151,6 +159,7 @@
         color: #e7e7e8;
         right: 14%;
     }
+    
     
     .social-media {
         text-align: center;
@@ -180,11 +189,7 @@
         color: #c2d574 !important;
     }
 
-    .edit{
-      
-        position: absolute;
-        margin-right: -7vh;
-    }
+
 
      /* The alert message box */
     .alert {
@@ -262,7 +267,7 @@
 
         <div class="sidenav-url">
             <div class="url">
-                <a href="#" class="active">Profile</a>
+                <a href="/profile" class="active">Profile</a>
                 {% comment %} <a href="{% url 'profile' user.id %}" class="active">Profile</a> {% endcomment %}
                 <hr align="center">
             </div>
@@ -276,11 +281,13 @@
 
     <!-- Main -->
     <div class="main">
-        <h2>IDENTITY</h2>
+        <h2>INFO</h2>
         <div class="card">
             <!-- <div class="card-body"> -->
                 <!-- <div class="text-right"> -->
-                    <div class="edit" data-toggle="modal" data-target="#profileModal"><i class="fa fa-pen fa-xs edit"></i></div>
+                    {% comment %} <div class="edit" data-toggle="modal" data-target="#profileModal"> {% endcomment %}
+                       <a href="/edit_profile"> <i class="fa fa-pen fa-xs edit"></i></a>
+                    {% comment %} </div> {% endcomment %}
                 <!-- </div> -->
                 <table>
                     <tbody>
@@ -327,7 +334,7 @@
         <h2>SOCIAL MEDIA</h2>
         <div class="card">
             <!-- <div class="card-body"> -->
-                <div class="edit" data-toggle="modal" data-target="#profileModal"><i class="fa fa-pen fa-xs edit"></i></div>
+                <a href="/edit_profile"> <i class="fa fa-pen fa-xs edit"></i></a>
                 <!-- <a href="/edit_profile"><i class="fa fa-pen fa-xs edit"></i></a> -->
                 <div class="social-media">
                     <span class="fa-stack fa-sm">
@@ -358,7 +365,7 @@
     </div>
 
     	<!--Edit user modal-->
-	<div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
+	{% comment %} <div class="modal fade" tabindex="-1" id="profileModal" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
                 <div class="modal-header">
@@ -379,9 +386,9 @@
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
               </div>
           </div>
-        </div>
+        </div> {% endcomment %}
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  {% comment %} <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script> {% endcomment %}
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> {% endcomment %}
+{% comment %} <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> {% endcomment %}
 {% endblock body %}
