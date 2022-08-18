@@ -111,14 +111,15 @@ def editprofile(request):
     if request.method == "POST":
         user_form = EditProfileForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
-        if user_form.is_valid():
+        if user_form.is_valid() or profile_form.is_valid():
+            profile_form.save()
             user_form.save()
             messages.success(request,('Your profile was successfully updated!'))
             return redirect ('profile')
-        elif profile_form.is_valid():
-            profile_form.save()
-            messages.success(request,('Your profile was successfully updated!'))
-            return redirect ('profile')
+        # elif profile_form.is_valid():
+        #     profile_form.save()
+        #     messages.success(request,('Your profile was successfully updated!'))
+        #     return redirect ('profile')
         else:
             messages.error(request,('Unable to complete request'))
             return render (request,'edit_profile.html')

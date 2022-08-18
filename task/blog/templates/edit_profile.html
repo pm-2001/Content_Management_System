@@ -3,19 +3,10 @@
 {% block body %}
 
 <style>
-  .container {
-    background: #84fab0;
-            background: -webkit-linear-gradient(to right, rgb(101, 204, 17), rgba(143, 211, 244, 1));
-            background: linear-gradient(to right, rgb(42, 188, 221), rgba(225, 203, 82, 0.137),rgb(34, 196, 99) );
-    margin: 20px 345px;
-    border-style: solid;
-    border-color: blue;
-    border-radius: 10px;
-    width: 120vh;
-    background-color: rgb(255, 255, 255);
-  }
+
+
   .form-group {
-    margin: 30px 70px;
+    margin: 30px 200px;
   }
 
   .form-control {
@@ -23,7 +14,6 @@
     padding: 10px 20px;
     margin: 4px 0;
     box-sizing: border-box;
-
     display: flex;
   }
 
@@ -105,6 +95,8 @@
 .closebtn:hover {
   color: rgb(253, 253, 253);
 }
+
+
 </style>
 {%for msg in messages%}
   <div class="alert">
@@ -112,53 +104,61 @@
     {{msg}}
   </div>
   {%endfor%}
-{% comment %} <div class="container">
-    <form method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div class="form-group">
-      <label for="name"><b>Name</b></label>
-      <input type="name" class="form-control" name="first_name" id="first_name" placeholder="Enter your name">
-    </div>
-    <div class="form-group">
-      <label for="email"><b>Email address</b> </label>
-      <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
-    </div>
-   <div class="form-group">
-      <label for="Mobile number"><b>Mobile number</b></label>
-      <input type="Number" class="form-control" name="phone" id="Mobile number" placeholder="Enter your mobile number">
-    </div> 
-    <div class="form-group">
-      <textarea class="form-control" placeholder="Leave a comment here" name="bio" id="floatingTextarea"
-        style="height: 100px"></textarea>
-    </div>
-    <div class="form-group">
-      <button class="button1" type="submit">Update</button>
-        <a href="{% url 'home' %}">
-          <div class="button2">Cancel</div>
-        </a>
-    </div>
-  </form>
-</div> {% endcomment %}
 
-<h1>Edit Profile Page</h1>
-<br><br>
-<div class="modal-body">
+  <br><br>
+  <div class="container">
+    <div class="form-group">
+        <h1>Edit Profile Page</h1>
+    </div>
     <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ user_form.as_p }}
+          <div class="form-group">
+            {{ user_form.username.label }}
+            {{ user_form.username }}
+          </div>
+          <div class="form-group">
+            {{ user_form.first_name.label }}
+            {{ user_form.first_name }}
+          </div>
+          <div class="form-group">
+            {{ user_form.last_name.label }}
+            {{ user_form.last_name }}
+          </div>
+          <div class="form-group">
+            {{ user_form.email.label }}
+            {{ user_form.email }}
+          </div>
+          <div class="form-group">
+            {{profile_form.bio.label}}
+            {{profile_form.bio}}
+          </div>
+          <div class="form-group">
+            {{profile_form.website_url.label}}
+            {{profile_form.website_url}}
+          </div>
+          <div class="form-group">
+            {{profile_form.fb_url.label}}
+            {{profile_form.fb_url}}
+          </div>
+          <div class="form-group">
+            {{profile_form.twitter_url.label}}
+            {{profile_form.twitter_url}}
+          </div>
+          <div class="form-group">
+            {{profile_form.instagram_url.label}}
+            {{profile_form.instagram_url}}
+          </div>
+          <div class="form-group">
+            {{profile_form.linkedin_url.label}}
+            {{profile_form.linkedin_url}}
+          </div>
           {% comment %} {{profile_form.as_p}} {% endcomment %}
-</div>
-  <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Save changes</button>
-    </form>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {% comment %} {{ user_form.as_p }} {% endcomment %}
-      {{profile_form.as_p}}
-</div>
-<div class="modal-footer">
-    <button type="submit" class="btn btn-primary">Save changes</button>
-</form> 
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <div class="form-group">
+      <div class="modal-footer">
+            <button type="submit" class="button1">Save changes</button>
+        </form>
+        <a href="{% url 'profile' %}"><button type="button" class="button2" data-dismiss="modal">Close</button></a>
+      </div>
+    </div>
 </div> 
 {% endblock body %}

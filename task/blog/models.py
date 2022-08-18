@@ -67,7 +67,7 @@ class Comment(models.Model):
 class Profile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,null=True)
     pic=models.ImageField(default='images/user.webp',upload_to = "pics/")
-    bio=models.TextField(null=True)
+    bio=models.TextField(null=True,blank=True)
     website_url=models.CharField(max_length=255,null=True,blank=True)
     fb_url=models.CharField(max_length=255,null=True,blank=True)
     twitter_url=models.CharField(max_length=255,null=True,blank=True)

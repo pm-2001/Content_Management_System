@@ -170,14 +170,11 @@
     <div class="form-group">
       <input type="snippet" class="form-control" name="snippet" id="snippet" placeholder="Add Your Post snippet ...">
     </div>
-    <div class="form-group">
-      <select type="select" class="form-control" name="category" id="category" placeholder="Add Your Post snippet ...">
-        <option value="volvo">Select Category</option>
-        <option value="saab">Sports</option>
-        <option value="opel">Technology</option>
-        <option value="audi">Coding</option>
-      </select>
-    </div>
+   <div class="form-group">
+         {{form.category}}
+    </div> 
+
+    
     <div class="content">
       {{form.body}}
       <br>
