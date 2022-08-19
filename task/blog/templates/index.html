@@ -100,12 +100,45 @@ body{
   transform: scale(1.05);
 }
 
+.column4 {
+  
+  /* position:relative; */
+  /* float: left; */
+  width: 70%;
+  
+}
+.recent{
+  border-style: solid;
+  border-color: #f83434d2;
+  background: #ff9d9dd2;
+  border-radius: 12px;
+  /* height: 50vh; */
+  text-align: left;
+  padding: 30px;
+}
+.recent a{
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.column1 {
+  float: left;
+  width: 70%;
+  margin-bottom: 30vh;
+}
+.column2 {
+  float: left;
+  width: 30%;
+  margin: 8vh 0 30vh 0;
+  /* margin-bottom: 30vh; */
+}
+
 @media(max-width:768px){
   .course{
     flex-direction: column;
     width: 90%;
-
   }
+
   .preview{
     width: 100%;
   }
@@ -134,9 +167,11 @@ body{
     <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
     {{msg}}
   </div>
-  {%endfor%}
-{%for i in posts %}
-  
+{%endfor%}
+
+<div class="row">
+  <div class="column1">
+    {%for i in posts %}
     <div class="container">
       <div class="preview">
         {% if i.image %}
@@ -146,18 +181,35 @@ body{
       <div class="info">
           <span class="progress-text">{{i.date}}</span>
         <h6>BY - {{i.username}} </h6>
-        <h2>{{i.title}}</h2>
+        <h2>{{i.category}}-{{i.title}}</h2>
         {% comment %} <p class="p-trunc">{{ i.body|slice:":20" | safe}}</p> {% endcomment %}
         <p class="p-trunc">{{ i.snippet}}</p>
         <a href = "{% url 'postdetail' i.id %}"><button class="btn">Read more</button></a>
       </div>
     </div>
+    {%endfor%}
+  </div>
   
   {% comment %} <script>
     const trunc = document.querySelector('.p-trunc');
     trunc.innerText= trunc.innerText.substring(0,20)
   </script> {% endcomment %}
-{%endfor%}
+
+<div class="column2">
+  <div class="column4" >
+    <div class="recent">
+        <h2>Search by category ...</h2>
+        <br>
+          {%for k in categories %}
+            <div class="submenu">
+              <a href="{% url 'category' k.name %}"><h3>{{k.name}}</h3></a>
+              <br>
+            </div> 
+          {% endfor %}
+    </div>
+  </div>
+</div>
+
 
 
     

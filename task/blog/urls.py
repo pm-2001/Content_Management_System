@@ -2,7 +2,7 @@ from re import template
 from django.contrib import admin
 from django.urls import path
 from blog import views
-from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,PasswordsChangeView
+from blog.views import PostDetail,UpdatePostView,DeletePostView,LikeView,PasswordsChangeView,AddCategoryView,CategoryView
 from django.contrib.auth import views as auth_views
 from . import views
 
@@ -13,6 +13,8 @@ urlpatterns = [
     path('contact',views.contact, name='contact'),
     path('profile',views.profile, name='profile'),
     path('posts/',views.posts, name='posts'),
+    path('add_category/',AddCategoryView.as_view(), name='add_category'),
+    path('category/<str:cats>/',CategoryView, name='category'),
     path('register',views.register, name='register'),
     path('edit_profile/',views.editprofile, name='edit_profile'),
     # path('password/', auth_views.PasswordChangeView.as_view(template_name='change_password.html')),

@@ -4,7 +4,7 @@ from audioop import reverse
 from xml.etree.ElementTree import Comment
 from django.shortcuts import render,HttpResponse,redirect,get_object_or_404
 from datetime import datetime
-from blog.models import Post,Comment,Contact,Profile
+from blog.models import Category, Post,Comment,Contact,Profile
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
@@ -19,11 +19,9 @@ from django.contrib.auth.views import PasswordChangeView
 
 
 def home(request):
-    # return HttpResponse("This is home page")
-    # if request.user.is_anonymous:
-    #     return redirect("/register")
     posts = Post.objects.all()
-    return render(request,'index.html',{'posts':posts})
+    categories = Category.objects.all()
+    return render(request,'index.html',{'posts':posts,'categories':categories})
 
 def LikeView(request, pk):
     post=get_object_or_404(Post,id=request.POST.get('post_id'))
@@ -35,6 +33,10 @@ def LikeView(request, pk):
         post.likes.add(request.user)
         liked=True
     return HttpResponseRedirect(reverse('postdetail' , args=[str(pk)]))
+
+def CategoryView(request,cats):
+    category_posts=Post.objects.filter(category=cats)
+    return render(request,'categories.html',{'cats':cats,'category_posts':category_posts})
 
 class PostDetail(DetailView):
     model = Post
@@ -48,7 +50,6 @@ class PostDetail(DetailView):
         liked = False
         if stuff.likes.filter(id = self.request.user.id).exists():
             liked=True
-
         form = CommentForm()
         post = get_object_or_404(Post, pk=pk)
         comments = post.comments.all()
@@ -94,10 +95,10 @@ class DeletePostView(DeleteView):
     template_name = 'delete_post.html'
     success_url= reverse_lazy('myblogs')
 
-# def delete_post(request,post_id=None):
-#     post_to_delete=Post.objects.get(id=post_id)
-#     post_to_delete.delete()
-#     return render(request,'myblogs.html')
+class AddCategoryView(CreateView):
+    model = Category
+    template_name = 'add_category.html'
+    fields = '__all__'
 
 def about(request):
     return render(request,'about.html')
@@ -155,8 +156,7 @@ def contact(request):
     return render(request,'contact.html')
 
 def register(request):
-    form = CreateUserForm()
-      
+    form = CreateUserForm() 
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
         if form.is_valid():

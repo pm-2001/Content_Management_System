@@ -22,6 +22,26 @@
             
             <!-- <li><a href="/contact"><i class="fa-solid fa-message-quote"></i>Contact</a></li> -->
             <!-- <li><a href="/about">About</a></li> -->
+            {% if user.is_authenticated %}<li><a href="{%url 'home'%}">Home</a></li>{% endif %}
+            {% if user.is_authenticated %}<li><a href="/myblogs">My blogs</a></li>{% endif %}
+            <li><a href="#">Category</a>
+                <ul>
+                   <div class="submenu">
+                    <li><a href="/category/Coding/">Coding</a></li>
+                    <li><a href="/category/Technology/">Technology</a></li>
+                    <li><a href="/category/News/">News</a></li>
+                    <li><a href="/category/Sports/">Sports</a></li>
+                    <li><a href="/category/Entertainment/">Entertainment</a></li>
+                    <li><a href="/category/Open%20source/">Open Source</a></li>
+                    <li><a href="/category/Games/">Games</a></li>
+                    <li><a href="/category/Business/">Business</a></li>
+                    <li><a href="/category/Social%20Media/">Social Media</a></li>
+                    <li><a href="/category/Religious/">Religious</a></li>
+                    <li><a href="/category/Political/">Political</a></li>
+                    <li><a href="{% url 'add_category'%}">Add category</a></li>
+                    </div>
+                </ul>  
+            </li>
             {% if user.is_authenticated %}<li><a href="/posts">Create</a></li>{% endif %}
             {% if user.is_authenticated %}<li><div class="user"><a href="#"><i class="fa-solid fa-user"></i></a></div>
                     <ul>
