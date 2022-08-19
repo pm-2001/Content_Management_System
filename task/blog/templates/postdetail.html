@@ -228,7 +228,7 @@
       <br>
       <p>{{post.username.profile.bio}}</p>
       <br><br>
-      <div class="primary"><a href = "#"">View Profile</a></div>
+      <div class="primary"><a href = "{% url 'profile' post.pk %}">View Profile</a></div>
       <div class="skills">
         <ul class="social_icon">
           <li><a href="{{post.username.profile.fb_url}}"><ion-icon name="logo-facebook"></ion-icon></a></li>

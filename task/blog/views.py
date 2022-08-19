@@ -87,7 +87,7 @@ class PostDetail(DetailView):
 class UpdatePostView(UpdateView):
     model= Post
     template_name = 'update_post.html'
-    fields = ['title','body','image']
+    fields = ['title','body','image','snippet']
     success_url= reverse_lazy('myblogs')
 
 class DeletePostView(DeleteView):
@@ -103,10 +103,10 @@ class AddCategoryView(CreateView):
 def about(request):
     return render(request,'about.html')
 
-def profile(request):
+def profile(request,pk):
     user_form = EditProfileForm(instance=request.user)
     profile_form = ProfileForm(instance=request.user.profile)
-    return render(request=request, template_name="profile.html", context={"user":request.user, "user_form":user_form, "profile_form":profile_form })
+    return render(request=request, template_name="profile.html",context={"user":request.user, "user_form":user_form, "profile_form":profile_form,})
 
 def editprofile(request):
     if request.method == "POST":
