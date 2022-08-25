@@ -45,6 +45,7 @@ class PostDetail(DetailView):
     def get_context_data(self,*args,**kwargs):
         context = super(PostDetail, self).get_context_data(**kwargs)
         pk = self.kwargs["pk"]
+        posts = Post.objects.all()
         stuff=get_object_or_404(Post, id=pk)
         total_likes = stuff.total_likes()
         liked = False
@@ -55,6 +56,7 @@ class PostDetail(DetailView):
         comments = post.comments.all()
 
         context['post'] = post
+        context['posts'] = posts
         context['comments'] = comments
         context['form'] = form
         context["total_likes"] = total_likes
@@ -116,7 +118,9 @@ def editprofile(request):
             profile_form.save()
             user_form.save()
             messages.success(request,('Your profile was successfully updated!'))
-            return redirect ('profile')
+            print (User.pk)
+            return render (request,'profile.html')
+            # return redirect ('profile/pk')
         # elif profile_form.is_valid():
         #     profile_form.save()
         #     messages.success(request,('Your profile was successfully updated!'))

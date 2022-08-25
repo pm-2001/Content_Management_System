@@ -312,6 +312,17 @@
   <div class="column4" >
     <div class="recent">
       <a href="#"><h3>Recent post..</h3></a>
+      <br>
+      {%for i in posts %}
+        {% if forloop.counter < 8 %}
+        <li>
+          <a href = "{% url 'postdetail' i.id %}">
+              {{ i.snippet}}
+            </a>
+          </li>
+          <br>
+        {% endif %}
+      {%endfor%}
     </div>
   </div>
 </div>
