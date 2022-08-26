@@ -315,11 +315,9 @@
       <br>
       {%for i in posts %}
         {% if forloop.counter < 8 %}
-        <li>
           <a href = "{% url 'postdetail' i.id %}">
-              {{ i.snippet}}
+              <p>{{ i.snippet}}</p>
             </a>
-          </li>
           <br>
         {% endif %}
       {%endfor%}

@@ -38,7 +38,9 @@
                     <li><a href="/category/Social%20Media/">Social Media</a></li>
                     <li><a href="/category/Religious/">Religious</a></li>
                     <li><a href="/category/Political/">Political</a></li>
+                    {% if request.user.is_superuser %}
                     <li><a href="{% url 'add_category'%}">Add category</a></li>
+                    {% endif %}
                     </div>
                 </ul>  
             </li>
