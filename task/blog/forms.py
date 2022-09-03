@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm,PasswordC
 from django.contrib.auth.models import User
 from django import forms
 from .models import Category, Post,Comment,Profile
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -77,6 +78,10 @@ class ImageForm(forms.ModelForm):
         # fields = ('title',)  
         widgets = {
             'category':forms.Select(attrs={'class':'form-control'},choices=choice_list),
+            # 'body': CKEditorUploadingWidget(attrs={
+            #     'class': 'my-ckeditor-class'
+            #     'id': 'my-ckeditor-id'
+            # })
         } 
 
 class CommentForm(forms.ModelForm):
